@@ -1,0 +1,3 @@
+program ::= func_and_var
+func_and_var ::= eps
+func_and_var ::= struct ID { func_and_var } ;
