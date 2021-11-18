@@ -6,13 +6,15 @@ follow=dict()
 select=dict()
 catergory_dict=set()
 
+def remove_line_break(li:list):
+	for i in range(len(li)):
+		if li[i][-1]=='\n':li[i]=li[i][0:-1]
+
 def read_terminal(file):# 输入终结符
 	global catergory_dict
 	f=open(file,"r",encoding="UTF-8")
 	catergory_dict=f.readlines()
-	for i in range(len(catergory_dict)):
-		if catergory_dict[i][-1]=='\n':
-			catergory_dict[i]=catergory_dict[i][0:-1]
+	remove_line_break(catergory_dict)
 	f.close()
 
 def read_grammer_file(file):# 输入文法
@@ -58,7 +60,7 @@ def getFirst():# 课本P78
 			if lens != len(first[addt]): # 有更新
 				update=1
 		if not update:break # 无更新,break
-	print(first)
+	# print(first)
 
 
 def getFollow():# 课本P79
@@ -95,7 +97,7 @@ def getFollow():# 课本P79
 					update=1
 
 		if not update:break
-	print(follow)
+	# print(follow)
 
 
 def getSelect():
@@ -115,7 +117,7 @@ def getSelect():
 		if ("eps" in fir):# 如果右边产生式可以为空
 			fir=fir.union(follow[line[0]])# 加入终结符的follow集
 		select[i]=fir
-	print(select)
+	# print(select)
 
 terminal=set()
 nterminal=set()
@@ -137,40 +139,47 @@ def getLL_1Table():
 				LL_1Table[nt][tem]=line
 			else:
 				print("文法错误")
-		
+	for nt in LL_1Table:
+		print(nt)
+		print(LL_1Table[nt])
+	print("\n\n\n")	
 
 def analysis(file)->bool:
 	f=open(file,"r",encoding="UTF-8")
 	stack2=f.readlines()
 	f.close()
+	remove_line_break(stack2)
 	stack1=["#","program"]
+	stack2.append('#')
 	index=0
 	while 1:
 		tk=stack2[index]
 		X=stack1.pop()
 		if isTerminal(X):
 			if tk==X:
+				if X=='#':return 1
 				index+=1
+				print("pop 终结符"+str(X))
 				continue
 			else:return 0
-		elif X=='#':
-			if tk==X:return 1
-			else: return 0
 		else:
 			try:
-				line=grammer[LL_1Table[X][tk]]
-				print(line)
+				line=grammer[LL_1Table[X][tk]].copy()
+				print("产生式："+str(line))
 				line.reverse()
 				line.pop()
-				for i in line:stack1.append(i)
+				for i in line:
+					if i!="eps":stack1.append(i)
 			except:return 0
-		print(stack1[-20:-1])
+		print(stack1[-20:])
 
 if __name__ == "__main__":
-	read_terminal("terminals.txt")
-	read_grammer_file("grammer.txt")
+	read_terminal("D:\大学攻略\课程学习\编译原理\语法分析器\\terminal.txt")
+	read_grammer_file("D:\大学攻略\课程学习\编译原理\语法分析器\\grammer.txt")
 	getFirst()
 	getFollow()
 	getSelect()
 	getLL_1Table()
-	analysis("2.txt")
+	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\2.txt")):
+		print('\n\n分析成功\n\n')
+	else:print("分析失败")
