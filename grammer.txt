@@ -1,3 +1,11 @@
 program ::= func_and_var
 func_and_var ::= eps
-func_and_var ::= struct ID { func_and_var } ;
+func_and_var ::= struct ID { func_and_var } ; func_and_var
+func_and_var ::= opt_var func_and_var
+opt_var ::= type ID params
+params ::= , ID params
+params ::= ;
+params ::= ( ) { }
+type ::= int
+type ::= float
+type ::= double
