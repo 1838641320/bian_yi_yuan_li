@@ -26,7 +26,7 @@ def read_grammer_file(file):# 输入文法
 		temp=line.split()# 空格分隔
 		temp.remove("::=")
 		grammer.append(temp)
-	print(grammer)
+	# print(grammer)
 	
 
 def isTerminal(str):return str in catergory_dict
@@ -171,7 +171,11 @@ def analysis(file)->bool:
 				for i in line:
 					if i!="eps":stack1.append(i)
 			except:return 0
+		print("状态栈")
 		print(stack1[-20:])
+		print("待分析单词")
+		print(stack2[index:+20])
+		print()
 
 if __name__ == "__main__":
 	read_terminal("D:\大学攻略\课程学习\编译原理\语法分析器\\terminal.txt")
@@ -180,6 +184,6 @@ if __name__ == "__main__":
 	getFollow()
 	getSelect()
 	getLL_1Table()
-	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\2.txt")):
+	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\code.txt")):
 		print('\n\n分析成功\n\n')
 	else:print("分析失败")
