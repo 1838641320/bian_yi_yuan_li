@@ -174,7 +174,7 @@ def analysis(file)->bool:
 		print("状态栈")
 		print(stack1[-20:])
 		print("待分析单词")
-		print(stack2[index:+20])
+		print(stack2[index:index+20])
 		print()
 
 if __name__ == "__main__":
