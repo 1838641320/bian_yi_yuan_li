@@ -1,21 +1,4 @@
-int
-ID
-=
-integer
-;
-int
-ID
-(
-)
-{
-int
-ID
-=
-float
-;
-double
-ID
-=
-float
-;
+int x=99;
+int main(){
+	int xx;
 }

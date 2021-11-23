@@ -1,0 +1,14 @@
+int
+ID
+=
+integer
+;
+int
+ID
+(
+)
+{
+int
+ID
+;
+}

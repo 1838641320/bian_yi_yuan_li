@@ -211,7 +211,8 @@ vector<string> main2(){
 	return answer;
 }
 int main(){
-	freopen("code.txt","w",stdout);
+	freopen("code.txt","r",stdin);
+	freopen("Lexical_analysis_result.txt","w",stdout);
 	auto res=main2();
 	for(auto i:res) cout<<i<<endl;
 }

@@ -184,6 +184,6 @@ if __name__ == "__main__":
 	getFollow()
 	getSelect()
 	getLL_1Table()
-	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\code.txt")):
+	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\Lexical_analysis_result.txt")):
 		print('\n\n分析成功\n\n')
 	else:print("分析失败")
