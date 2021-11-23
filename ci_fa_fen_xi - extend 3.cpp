@@ -205,7 +205,7 @@ vector<string> main2(){
 		}
 		else if(f1.size()){
 			// printf("%s\t\t%d,%d\tfloat value constant\n",f1.c_str(),line,col);
-			answer.push_back("float");
+			answer.push_back("float_constant");
 		}
 	}
 	return answer;

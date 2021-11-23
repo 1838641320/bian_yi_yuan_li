@@ -73,5 +73,5 @@ while
 --
 ID
 integer
-float
+float_constant
 string
