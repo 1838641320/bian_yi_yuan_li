@@ -2,6 +2,6 @@ int x=99;
 int main(){
 	double dp=0.5;
 	int i;
-	for(i=5;;);
+	for(i=5;0;8);
 }
 int p=0;
