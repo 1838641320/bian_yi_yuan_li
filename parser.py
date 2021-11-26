@@ -139,6 +139,7 @@ def getLL_1Table():
 				LL_1Table[nt][tem]=line
 			else:
 				print("文法错误")
+				print(LL_1Table[nt])
 	for nt in LL_1Table:
 		print(nt)
 		print(LL_1Table[nt])
