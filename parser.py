@@ -54,7 +54,7 @@ def getFirst():# 课本P78
 					break
 
 				t=first[token].copy()
-				t.remove("eps")
+				t.discard("eps")
 				first[addt]=first[addt].union(t)
 
 			if lens != len(first[addt]): # 有更新
@@ -85,13 +85,12 @@ def getFollow():# 课本P79
 						fir=fir.union(first[line[j]])
 						break
 					t=first[line[j]].copy()
-					t.remove("eps")
+					t.discard("eps")
 					fir=fir.union(t)
 
 				if ("eps" in fir) or len(fir)==0:
 					fir=fir.union(follow[line[0]])
-					fir.add("eps")
-					fir.remove("eps") # 去除空
+					fir.discard("eps") # 去除空
 				follow[line[i]]=follow[line[i]].union(fir)
 				if lens!=len(follow[line[i]]):
 					update=1
@@ -112,10 +111,11 @@ def getSelect():
 				fir=fir.union(first[line[j]])
 				break
 			t=first[line[j]].copy()
-			t.remove("eps")
+			t.discard("eps")
 			fir=fir.union(t)
 		if ("eps" in fir):# 如果右边产生式可以为空
 			fir=fir.union(follow[line[0]])# 加入终结符的follow集
+		fir.discard("eps")
 		select[i]=fir
 	# print(select)
 
@@ -179,12 +179,12 @@ def analysis(file)->bool:
 		print()
 
 if __name__ == "__main__":
-	read_terminal("D:\大学攻略\课程学习\编译原理\语法分析器\\terminal.txt")
-	read_grammer_file("D:\大学攻略\课程学习\编译原理\语法分析器\\grammer.txt")
+	read_terminal("terminal.txt")
+	read_grammer_file("grammer.txt")
 	getFirst()
 	getFollow()
 	getSelect()
 	getLL_1Table()
-	if(analysis("D:\大学攻略\课程学习\编译原理\语法分析器\\Lexical_analysis_result.txt")):
+	if(analysis("Lexical_analysis_result.txt")):
 		print('\n\n分析成功\n\n')
 	else:print("分析失败")
