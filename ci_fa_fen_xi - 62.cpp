@@ -172,8 +172,8 @@ struct {
 	}
 }find_str;
 int main(){
-	// freopen("code.txt","r",stdin);
-	// freopen("Lexical_analysis_result.txt","w",stdout);
+	freopen("code.txt","r",stdin);
+	freopen("Lexical_analysis_result.txt","w",stdout);
 	find_id.init();
 	find_int.init();
 	find_float.init();
