@@ -3,6 +3,7 @@
 #include<queue>
 #include<map>
 #include<cassert>
+#include<algorithm>
 using namespace std;
 const static string key_words[]={
 	"auto","break","case","char","const","continue","default",
@@ -171,8 +172,8 @@ struct {
 	}
 }find_str;
 int main(){
-	freopen("code.txt","r",stdin);
-	freopen("Lexical_analysis_result.txt","w",stdout);
+	// freopen("code.txt","r",stdin);
+	// freopen("Lexical_analysis_result.txt","w",stdout);
 	find_id.init();
 	find_int.init();
 	find_float.init();
@@ -203,6 +204,7 @@ int main(){
 		i1=find_int.extend_char(p);
 		auto isz=id.length();
 		int isid=(dim_sta!=1||find_id.str_to_id.count(find_id.ttoken))&&!id_or_num;
+        int is_hi=count_if(i1.begin(),i1.end(),[](int x){return isalpha(x);});
 		if(op1!=-1){
 			auto res=operator_or_delimiter[op1];
 			if(strcmp(res,";")==0&&dim_sta>0) dim_sta=0,six=0;
@@ -227,9 +229,7 @@ int main(){
 			printf("%s\n","ID");
 			// printf("%s\t\t%d,%d\tidentifier\t\t%d\n",find_id.ids[id1-six*500].c_str(),line,col,id1+2000);
 		}
-		else if(i1.size()&&i1==f1){
-			is_hi=0;
-			for(char c:i1) if(isalpha(c)) is_hi=1;
+		else if(i1.size()&&(i1==f1||is_hi)){
 			// printf("%s\t\t%d,%d\t",i1.c_str(),line,col);
 			if(is_hi||six) puts("62integer");
 			else puts("integer");
