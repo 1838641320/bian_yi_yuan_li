@@ -204,7 +204,7 @@ int main(){
 		i1=find_int.extend_char(p);
 		auto isz=id.length();
 		int isid=(dim_sta!=1||find_id.str_to_id.count(find_id.ttoken))&&!id_or_num;
-        int is_hi=count_if(i1.begin(),i1.end(),[](int x){return isalpha(x);});
+		int is_hi=count_if(i1.begin(),i1.end(),[](int x){return isalpha(x);});
 		if(op1!=-1){
 			auto res=operator_or_delimiter[op1];
 			if(strcmp(res,";")==0&&dim_sta>0) dim_sta=0,six=0;
