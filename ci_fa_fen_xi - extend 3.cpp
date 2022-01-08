@@ -187,25 +187,25 @@ vector<string> main2(){
 		if(op1!=-1){
 			auto res=operator_or_delimiter[op1];
 			// printf("%s\t\t%d,%d\t\t\t\t%d\n",res,line,col,1000+op1);
-			answer.push_back(res);
+			answer.push_back(res+string("\n"));
 			if(strlen(res)==2) i++,p++;
 			find_key_words.sta=0;
 		}
 		else if(k1!=-1){
 			// printf("%s\t\t%d,%d\tkey words\t\t%d\n",key_words[k1].c_str(),line,col,k1);
-			answer.push_back(key_words[k1]);
+			answer.push_back(key_words[k1]+string("\n"));
 		}
 		else if(id!=-1){
 			// printf("%s\t\t%d,%d\tidentifier\t\t%d\n",find_id.ids[id].c_str(),line,col,id+2000);
-			answer.push_back("ID");
+			answer.push_back("ID\t"+find_id.ids[id]+"\n");
 		}
 		else if(i1==f1&&i1.size()){
 			// printf("%s\t\t%d,%d\tinteger constant\n",i1.c_str(),line,col);
-			answer.push_back("integer");
+			answer.push_back("integer\t"+i1+"\n");
 		}
 		else if(f1.size()){
 			// printf("%s\t\t%d,%d\tfloat value constant\n",f1.c_str(),line,col);
-			answer.push_back("float_constant");
+			answer.push_back("float_constant\t"+f1+"\n");
 		}
 	}
 	return answer;
@@ -214,5 +214,5 @@ int main(){
 	freopen("code.txt","r",stdin);
 	freopen("Lexical_analysis_result.txt","w",stdout);
 	auto res=main2();
-	for(auto i:res) cout<<i<<endl;
+	for(auto i:res) cout<<i;
 }

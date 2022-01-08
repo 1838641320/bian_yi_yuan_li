@@ -1,78 +1,94 @@
 int
-ID
+ID	x
 =
-integer
+integer	99
 ,
-ID
+ID	b
 [
-integer
+integer	20
 ]
 ;
 int
-ID
+ID	main
 (
 )
 {
 double
-ID
+ID	dp
 =
-float_constant
+float_constant	0.5
 ;
 int
-ID
+ID	i
 ;
 for
 (
-ID
+ID	i
 =
-integer
+integer	5
 ;
-ID
+ID	i
 <
-integer
+integer	6
 ;
 )
-ID
+ID	i
 =
-ID
+ID	i
 +
-integer
+integer	1
 ;
 if
 (
-ID
+ID	i
 <
-integer
+integer	3
 )
-ID
+ID	dp
 =
-integer
+integer	2
 ;
 else
-ID
+ID	dp
 =
-integer
+integer	3
 ;
 while
 (
-ID
+ID	i
 ==
-integer
+integer	6
 )
 {
-ID
+ID	i
 =
-ID
+ID	i
 +
-integer
+integer	1
 ;
 }
 return
-integer
+integer	666
+;
+do
+{
+ID	i
+=
+ID	i
++
+integer	9
+;
+}
+while
+(
+ID	i
+<
+integer	200
+)
 ;
 }
 int
-ID
+ID	p
 =
-integer
+integer	0
 ;

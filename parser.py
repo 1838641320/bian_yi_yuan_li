@@ -154,7 +154,7 @@ def analysis(file)->bool:
 	stack2.append('#')
 	index=0
 	while 1:
-		tk=stack2[index]
+		tk=stack2[index].split("\t")[0]
 		X=stack1.pop()
 		if isTerminal(X):
 			if tk==X:
@@ -166,10 +166,8 @@ def analysis(file)->bool:
 		else:
 			try:
 				line=grammer[LL_1Table[X][tk]].copy()
-				print("产生式："+str(line))
-				line.reverse()
-				line.pop()
-				for i in line:
+				print("产生式:"+str(line))
+				for i in line[-1:0:-1]:
 					if i!="eps":stack1.append(i)
 			except:return 0
 		print("状态栈")

@@ -7,5 +7,6 @@ int main(){
 	else dp=3;
 	while(i==6) {i=i+1;}
 	return 666;
+	do{i=i+9;}while(i<200);
 }
 int p=0;
