@@ -1,0 +1,94 @@
+int
+ID	x
+=
+integer	99
+,
+ID	b
+[
+integer	20
+]
+;
+int
+ID	main
+(
+)
+{
+double
+ID	dp
+=
+float_constant	0.5
+;
+int
+ID	i
+;
+for
+(
+ID	i
+=
+integer	5
+;
+ID	i
+<
+integer	6
+;
+)
+ID	i
+=
+ID	i
++
+integer	1
+;
+if
+(
+ID	i
+<
+integer	3
+)
+ID	dp
+=
+integer	2
+;
+else
+ID	dp
+=
+integer	3
+;
+while
+(
+ID	i
+==
+integer	6
+)
+{
+ID	i
+=
+ID	i
++
+integer	1
+;
+}
+return
+integer	666
+;
+do
+{
+ID	i
+=
+ID	i
++
+integer	9
+;
+}
+while
+(
+ID	i
+<
+integer	200
+)
+;
+}
+int
+ID	p
+=
+integer	0
+;
