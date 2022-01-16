@@ -53,7 +53,7 @@ def find_string_or_char(s:str)->tuple:
 	return (0,0)
 
 def find_identifier(s:str)->tuple:
-	res=re.search(r"^[_a-z][_a-zA-Z0-9]*",s)
+	res=re.search(r"^[_a-zA-Z][_a-zA-Z0-9]*",s)
 	if(res==None):return (0,0)
 	return ("ID",s[0:res.span()[1]])
 
