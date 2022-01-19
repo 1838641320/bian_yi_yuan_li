@@ -147,6 +147,7 @@ def getLL_1Table():
 	print("\n\n\n")	
 
 def analysis(file)->bool:
+	parser_list=[]
 	stack2=lex.main()
 	stack1=["#","program"]
 	stack2.append(('#',))
@@ -156,32 +157,41 @@ def analysis(file)->bool:
 		X=stack1.pop()
 		if isTerminal(X):
 			if tk==X:
-				if X=='#':return 1
+				if X=='#':return (1,parser_list)
 				index+=1
 				print("pop 终结符"+str(X))
 				continue
-			else:return 0
+			else:break
 		else:
 			try:
 				line=grammer[LL_1Table[X][tk]].copy()
 				print("产生式:"+str(line))
 				for i in line[-1:0:-1]:
 					if i!="eps":stack1.append(i)
-			except:return 0
+				parser_list.append(line)
+			except:break
 		print("状态栈")
 		print(stack1[-26:])
 		print("待分析单词")
 		for i in stack2[index:index+26]:
 			print(i[0],end=' ')
 		print('\n\n')
+	return (0,0)
 
-if __name__ == "__main__":
+def main():
 	read_terminal("terminal.txt")
 	read_grammer_file("grammer.txt")
 	getFirst()
 	getFollow()
 	getSelect()
 	getLL_1Table()
-	if(analysis("Lexical_analysis_result.txt")):
+	ret=analysis("Lexical_analysis_result.txt")
+	if(ret[0]):
 		print('\n\n分析成功\n\n')
+		for i in ret[1]:print(i)
+		return ret[1]
 	else:print("分析失败")
+
+
+if __name__ == "__main__":
+	main()
