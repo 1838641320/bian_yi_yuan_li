@@ -114,7 +114,7 @@ integer           32
 int62             key_words
 ID                xx
 =                 operator
-integer           215
+integer           1801
 ,                 operator
 ID                qq
 =                 operator
@@ -130,4 +130,6 @@ ID                ppp
 ID                xx
 +                 operator
 ID                y
++                 operator
+integer           214745
 ;                 operator

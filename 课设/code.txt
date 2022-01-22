@@ -16,5 +16,5 @@ void func(){
 }
 
 int y=32;
-int62 xx=3t,qq=y,qqt=20;
-int62 ppp=xx+y;
+int62 xx=t3,qq=y,qqt=20;
+int62 ppp=xx+y+TRD;

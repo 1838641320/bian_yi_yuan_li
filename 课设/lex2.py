@@ -42,12 +42,12 @@ is_dim=0
 def find_number(s:str)->tuple:
 	integer=re.search(r"^[-+]?([1-9][0-9]*|0)",s)
 	floating=re.search(r"^[-+]?([1-9][0-9]*|0?)\.?[0-9]*",s)
-	if(integer==None):return (0,)
+	# if(integer==None):return (0,)
 	seg=floating.span()[1]
-	ty='float_constant' if floating.span()[1]>integer.span()[1] else 'integer'
+	ty='integer' if integer==None or floating.span()[1]<=integer.span()[1] else 'float_constant'
 	if(ty=='integer' or (is_dim&4)): # for int62
 		int62=re.search(r"^[-+]?([1-9a-zA-Z][0-9a-zA-Z]*|0)",s)
-		if((is_dim&4) or int62.span()[1]>integer.span()[1]):
+		if((is_dim&4) or integer==None or int62.span()[1]>integer.span()[1]):
 			seg=int62.span()[1]
 			st=s[0:seg]
 			value=0
@@ -71,7 +71,7 @@ def find_identifier(s:str)->tuple:
 	if(res==None):return (0,0)
 	id1=res.group(0)
 	if id1 not in id_table:
-		if((is_dim&2)==0):return (0,0)
+		if((is_dim&1)==0):return (0,0)
 		id_table.append(id1)
 	return ("ID",s[0:res.span()[1]])
 

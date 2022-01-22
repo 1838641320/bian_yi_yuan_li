@@ -139,7 +139,7 @@ def getLL_1Table():
 			if tem not in LL_1Table[nt]:
 				LL_1Table[nt][tem]=line
 			else:
-				print("文法错误")
+				print("\n\n文法错误\n\n")
 				print(LL_1Table[nt])
 	for nt in LL_1Table:
 		print(nt)
