@@ -45,9 +45,9 @@ def find_number(s:str)->tuple:
 	if(integer==None):return (0,)
 	seg=floating.span()[1]
 	ty='float_constant' if floating.span()[1]>integer.span()[1] else 'integer'
-	if(ty=='integer' or is_dim==2): # for int62
+	if(ty=='integer' or (is_dim&4)): # for int62
 		int62=re.search(r"^[-+]?([1-9a-zA-Z][0-9a-zA-Z]*|0)",s)
-		if(is_dim==2 or int62.span()[1]>integer.span()[1]):
+		if((is_dim&4) or int62.span()[1]>integer.span()[1]):
 			seg=int62.span()[1]
 			st=s[0:seg]
 			value=0
@@ -55,7 +55,7 @@ def find_number(s:str)->tuple:
 				if(c.isdigit()):value=value*62+int(c)
 				elif(c.islower()):value=value*62+ord(c)-97+10
 				elif(c.isupper()):value=value*62+ord(c)-ord('A')+36
-			return ("int62",str(value),seg)
+			return ("integer",str(value),seg)
 	return (ty,s[0:seg])
 
 def find_string_or_char(s:str)->tuple:
@@ -71,7 +71,7 @@ def find_identifier(s:str)->tuple:
 	if(res==None):return (0,0)
 	id1=res.group(0)
 	if id1 not in id_table:
-		if(is_dim!=3):return (0,0)
+		if((is_dim&2)==0):return (0,0)
 		id_table.append(id1)
 	return ("ID",s[0:res.span()[1]])
 
@@ -111,7 +111,8 @@ def main()->list:
 			print(tp)
 			result.append(tp)
 			ptr+=len(tp[0])
-			if(tp[0] in ['int62','int','float','double']):is_dim=3
+			if(tp[0] in ['int62','int','float','double','void','char']):is_dim=3
+			if(tp[0]=='int62'):is_dim|=4
 			if(tp[0]==';'):is_dim=0
 			if(tp[0]=='='):is_dim&=2
 			if(tp[0]==','):is_dim|=1

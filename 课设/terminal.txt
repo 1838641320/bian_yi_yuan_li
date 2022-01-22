@@ -76,3 +76,4 @@ integer
 float_constant
 string
 int62
+repeat
