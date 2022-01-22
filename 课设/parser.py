@@ -190,7 +190,7 @@ def main():
 	if(ret[0]):
 		print('\n\n分析成功\n\n')
 		for i in ret[1]:print(i)
-		return ret[1]
+		return (ret[1],ret[2])
 	else:print("分析失败")
 
 
