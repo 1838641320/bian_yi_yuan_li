@@ -149,6 +149,7 @@ def getLL_1Table():
 def analysis(file)->bool:
 	parser_list=[]
 	stack2=lex.main()
+	lex_result_=stack2
 	stack1=["#","program"]
 	stack2.append(('#',))
 	index=0
@@ -157,7 +158,7 @@ def analysis(file)->bool:
 		X=stack1.pop()
 		if isTerminal(X):
 			if tk==X:
-				if X=='#':return (1,parser_list)
+				if X=='#':return (1,parser_list,lex_result_)
 				index+=1
 				print("pop 终结符"+str(X))
 				continue
