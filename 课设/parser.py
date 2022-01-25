@@ -169,7 +169,7 @@ def analysis(file)->bool:
 				print("产生式:"+str(line))
 				for i in line[-1:0:-1]:
 					if i!="eps":stack1.append(i)
-				parser_list.append(line)
+				parser_list.append(LL_1Table[X][tk])
 			except:break
 		print("状态栈")
 		print(stack1[-26:])
@@ -190,7 +190,12 @@ def main():
 	if(ret[0]):
 		print('\n\n分析成功\n\n')
 		for i in ret[1]:print(i)
-		return (ret[1],ret[2])
+		for i in range(len(ret[2])):
+			if(ret[2][i][0] in ['ID','integer','float_constant','string']):
+				ret[2][i]=ret[2][i][1]
+			else:
+				ret[2][i]=ret[2][i][0]
+		return (ret[1],ret[2],catergory_dict)
 	else:print("分析失败")
 
 

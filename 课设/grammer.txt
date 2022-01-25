@@ -1,6 +1,6 @@
 program ::= eps
-program ::= struct ID { func_and_var } ; func_and_var
-program ::= 全局变量 func_and_var
+program ::= struct ID { func_and_var } ; program
+program ::= 全局变量 program
 type ::= int
 type ::= int62
 type ::= float
