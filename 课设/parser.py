@@ -195,7 +195,7 @@ def main():
 				ret[2][i]=ret[2][i][1]
 			else:
 				ret[2][i]=ret[2][i][0]
-		return (ret[1],ret[2],catergory_dict)
+		return (ret[1],ret[2])
 	else:print("分析失败")
 
 
