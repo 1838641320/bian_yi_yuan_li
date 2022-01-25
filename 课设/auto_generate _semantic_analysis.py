@@ -1,7 +1,7 @@
 
 grammar_file="grammer.txt"
 terminal_file="terminal.txt"
-result_file="generated_for_semantic_analysis.txt"
+result_file="generated_for_semantic_analysis.py"
 
 def remove_line_break(li:list):
 	for i in range(len(li)):
@@ -24,21 +24,29 @@ for line in file_content:
 	temp.remove("::=")
 	grammar.append(temp)
 
-index=0
+f=open(result_file,"w",encoding="UTF-8")
+
+f.write('''
+result1, result2=[],[]
+def deal(x):1\n\n
+''')
+
+index=-1
 
 for line in grammar:
 	index+=1
-	print("# 产生式 "+str(line[0])+" ::= "+' '.join(line[1:]))
-	print("def fun_"+str(index)+"():")
-	print("\tglobal result1, result2")
-	print("\tresult1.pop(0)")
+	f.write("# 产生式 "+str(line[0])+" ::= "+' '.join(line[1:])+'\n')
+	f.write("def fun_"+str(index)+"():"+'\n')
+	f.write("\tglobal result1, result2"+'\n')
+	f.write("\tresult1.pop(0)"+'\n')
 	for i in range(1,len(line)):
 		if(isKong(line[i])):
 			continue
 		if(isTerminal(line[i])):
-			print("\tdeal(2)",end='')
+			f.write("\tdeal(2)")
 		else:
-			print("\tdeal(1)",end='')
-		print("\t\t# "+str(line[i]))
-	print('')
+			f.write("\tdeal(1)")
+		f.write("\t\t# "+str(line[i])+'\n')
+	f.write('\n')
 	
+f.close()
