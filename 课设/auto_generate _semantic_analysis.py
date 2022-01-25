@@ -31,7 +31,7 @@ for line in grammar:
 	print("# 产生式 "+str(line[0])+" ::= "+' '.join(line[1:]))
 	print("def fun_"+str(index)+"():")
 	print("\tglobal result1, result2")
-	print("\tresult1 = result1[1:]")
+	print("\tresult1.pop(0)")
 	for i in range(1,len(line)):
 		if(isKong(line[i])):
 			continue
