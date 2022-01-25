@@ -8,7 +8,7 @@ def fun_0():
 	global result1, result2
 	result1.pop(0)
 
-# 产生式 program ::= struct ID { func_and_var } ; func_and_var
+# 产生式 program ::= struct ID { func_and_var } ; program
 def fun_1():
 	global result1, result2
 	result1.pop(0)
@@ -18,14 +18,14 @@ def fun_1():
 	deal(1)		# func_and_var
 	deal(2)		# }
 	deal(2)		# ;
-	deal(1)		# func_and_var
+	deal(1)		# program
 
-# 产生式 program ::= 全局变量 func_and_var
+# 产生式 program ::= 全局变量 program
 def fun_2():
 	global result1, result2
 	result1.pop(0)
 	deal(1)		# 全局变量
-	deal(1)		# func_and_var
+	deal(1)		# program
 
 # 产生式 type ::= int
 def fun_3():
