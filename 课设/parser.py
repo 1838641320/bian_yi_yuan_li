@@ -181,7 +181,7 @@ def analysis(file)->bool:
 
 def main():
 	read_terminal("terminal.txt")
-	read_grammer_file("grammer.txt")
+	read_grammer_file("grammer2.txt")
 	getFirst()
 	getFollow()
 	getSelect()
