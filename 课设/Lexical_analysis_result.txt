@@ -13,12 +13,6 @@ ID                main
 (                 operator
 )                 operator
 {                 operator
-char              key_words
-*                 operator
-ID                s
-=                 operator
-string            "hello world"
-;                 operator
 double            key_words
 ID                dp
 =                 operator
@@ -111,7 +105,7 @@ ID                y
 =                 operator
 integer           32
 ;                 operator
-int62             key_words
+int               key_words
 ID                xx
 =                 operator
 integer           1801
@@ -124,7 +118,7 @@ ID                qqt
 =                 operator
 integer           20
 ;                 operator
-int62             key_words
+int               key_words
 ID                ppp
 =                 operator
 ID                xx
