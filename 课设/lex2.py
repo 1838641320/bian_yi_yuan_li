@@ -109,7 +109,7 @@ def main()->list:
 		tp=find_op_or_key_words(nexts)
 		if(tp[0]!=0):
 			print(tp)
-			result.append(tp)
+			result.append(tp if tp[0]!='int62' else ('int',tp[1]))
 			ptr+=len(tp[0])
 			if(tp[0] in ['int62','int','float','double','void','char']):is_dim=3
 			if(tp[0]=='int62'):is_dim|=4
