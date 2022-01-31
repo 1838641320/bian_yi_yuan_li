@@ -1015,7 +1015,7 @@ def main():
         print(f)
         count += 1
     print(table)
-
+    return four
 
 if __name__ == "__main__":
     main()
