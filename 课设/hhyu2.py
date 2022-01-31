@@ -1,4 +1,4 @@
-import yufa,parser
+import yufa
 
 # 语法分析的结果
 result1 = list()  # 产生式
@@ -13,6 +13,7 @@ label = 1  # 四元式暂存的结果
 note = list()  # 暂存返回值
 comp = {'bool': 0, 'int': 1, 'float': 1, 'double': 2}  # 用于类型转换
 word = 0
+
 
 def deal(a: int):
     global analyze
@@ -575,12 +576,12 @@ def fun_48():
     elif info[1] == 'int':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
-        #value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['int', 0,t])
+        # value = eval(str(num1) + info[2] + str(info[0]))
+        analyze.append(['int', 0, t])
     elif info[1] == 'double':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
-        #value = eval(str(num1) + info[2] + str(info[0]))
+        # value = eval(str(num1) + info[2] + str(info[0]))
         analyze.append(['double', 0, t])
     else:
         print('错误提示:请先进行强制转换!')
@@ -601,12 +602,12 @@ def fun_49():
     elif info[1] == 'float':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
-        #value = eval(str(num1) + info[2] + str(info[0]))
+        # value = eval(str(num1) + info[2] + str(info[0]))
         analyze.append(['float', 0, t])
     elif info[1] == 'double':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
-        #value = eval(str(num1) + info[2] + str(info[0]))
+        # value = eval(str(num1) + info[2] + str(info[0]))
         analyze.append(['double', 0, t])
     else:
         print('错误提示:请先进行强制转换!')
@@ -614,7 +615,7 @@ def fun_49():
 
 # 产生式 求值式 ::= ID 带符号右值
 def fun_50():
-    global result1, result2, analyze, comp, four, label,word
+    global result1, result2, analyze, comp, four, label, word
     result1.pop(0)
     num1 = deal(2)  # ID
     word = num1
@@ -646,18 +647,18 @@ def fun_50():
             else:
                 four.append([info[2], num1, info[0], 'T' + str(label)])
                 label += 1
-                #value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-                analyze.append([info[1], 0, 'T'+str(t)])
+                # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
+                analyze.append([info[1], 0, 'T' + str(t)])
         elif comp[table[num1][0]] < comp[info[1]]:
             four.append([info[2], num1, info[0], 'T' + str(label)])
             label += 1
-            #value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-            analyze.append([info[1], 0, 'T'+str(t)])
+            # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
+            analyze.append([info[1], 0, 'T' + str(t)])
         elif comp[table[num1][0]] > comp[info[1]]:
             four.append([info[2], num1, info[0], 'T' + str(label)])
             label += 1
-            #value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-            analyze.append([table[num1][0], 0, 'T'+str(t)])
+            # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
+            analyze.append([table[num1][0], 0, 'T' + str(t)])
         else:
             print('错误提示:请先进行强制转换!')
     except KeyError:
@@ -699,7 +700,7 @@ def fun_54():
 
 # 产生式 带符号右值 ::= eps
 def fun_55():
-    global result1, result2, analyze,word
+    global result1, result2, analyze, word
     result1.pop(0)
     analyze.append([word, 'default', '+'])
 
@@ -848,7 +849,7 @@ def fun_68():
     begin = len(four) + 1
     deal(1)  # 求值式
     tlist = four.pop()
-    tlist[0] = 'j' + tlist[0]
+    tlist[0] = 'j' + tlist[0][0]
     tlist[3] = len(four) + 3
     four.append(tlist)
     four.append(['j', '-', '-', -1])
@@ -898,7 +899,7 @@ def fun_70():
     deal(1)  # 求值式
 
 
-# 产生式 switch语句 ::= switch ( id ) { case integer : next } 语句
+# 产生式 switch语句 ::= switch ( id ) { case integer : next }
 def fun_71():
     global result1, result2, analyze, analyze_1, four
     result1.pop(0)
@@ -906,19 +907,17 @@ def fun_71():
     deal(2)  # (
     name = deal(2)  # id
     try:
-        value = table[name][2]
         deal(2)  # )
-
         deal(2)  # {
         deal(2)  # case
         i = deal(2)  # integer
-        four.append(['j=', value, i, len(four) + 1])  # if value == i:
+        four.append(['j=', name, i, len(four) + 3])  # if name == i:
         four.append(['j', '-', '-', -1])
 
         deal(2)  # :
         analyze_1 = analyze.copy()
         analyze.clear()
-        analyze.append([value, len(four) - 1])
+        analyze.append([name, len(four) - 1])
         deal(1)  # next
 
         temp = analyze.pop()
@@ -929,7 +928,6 @@ def fun_71():
             four[index][3] = l
         analyze = analyze_1.copy()
         deal(2)  # }
-        deal(1)  # 语句
     except:
         print('错误提示:该变量未定义!')
 
@@ -943,8 +941,8 @@ def fun_72():
     value = analyze.pop()  # 把value放在栈顶
     four.append(['j', '-', '-', -1])
     analyze.append(len(four) - 1)  # break 的回填
-
     analyze.append(value)
+
     deal(2)  # ;
     deal(1)  # next
 
@@ -957,8 +955,8 @@ def fun_73():
     i = deal(2)  # integer
 
     value = analyze.pop()
-    four[value[1]] = len(four) + 1
-    four.append(['j=', value, i, len(four) + 1])
+    four[value[1]][3] = len(four) + 1
+    four.append(['j=', value[0], i, len(four) + 3])
     four.append(['j', '-', '-', -1])
     value.pop()
     value.append(len(four) - 1)
@@ -1002,11 +1000,19 @@ def fun_76():
     result1.pop(0)
 
 
+# 产生式 local ::= switch语句 local
+def fun_77():
+    global result1, result2
+    result1.pop(0)
+    deal(1)  # switch 语句
+    deal(1)  # local
+
+
 def main():
     # 语义分析
     # 中间代码生成
     global result1, result2, four, table
-    result1, result2 = parser.main()
+    result1, result2 = yufa.main()
     print()
     deal(1)
     count = 1
@@ -1015,7 +1021,7 @@ def main():
         print(f)
         count += 1
     print(table)
-    return four
+
 
 if __name__ == "__main__":
     main()
