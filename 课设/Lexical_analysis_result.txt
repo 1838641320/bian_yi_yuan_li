@@ -13,6 +13,12 @@ ID                main
 (                 operator
 )                 operator
 {                 operator
+char              key_words
+*                 operator
+ID                s
+=                 operator
+string            "hello world"
+;                 operator
 double            key_words
 ID                dp
 =                 operator

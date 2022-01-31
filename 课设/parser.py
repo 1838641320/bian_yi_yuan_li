@@ -1,5 +1,5 @@
 import sys
-import lex,lex2
+import lex2
 
 grammer=list()
 first=dict()
