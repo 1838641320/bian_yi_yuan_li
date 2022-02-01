@@ -75,3 +75,4 @@ next ::= 语句 next
 next ::= default : 语句
 next ::= eps
 local ::= switch语句 local
+带符号右值 ::= [ 求值式 ]
