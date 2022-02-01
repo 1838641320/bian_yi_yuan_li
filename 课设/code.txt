@@ -1,9 +1,9 @@
 int x=99,b[20];
 int main(){
-	//char *s="hello world";
+	char *s="hello world";
 	double dp=0.5;
 	int i;
-	for(i=5;i<6;i++) i=i+1;
+	for(i=50;i>6;i++) i=i-100;
 	if(i<3) dp=2;
 	else dp=3;
 	while(i==6) {i=i+1;}
@@ -19,3 +19,15 @@ void func(){
 int y=32;
 int62 xx=t3,qq=y,qqt=20;
 int62 ppp=xx+y+TRD;
+
+//int main(){
+//	int x=8,y=1;
+//	int z=x+y+9;
+//	switch(x){
+//		case 6:
+//			x=x+3;
+//		case 4:
+//			x=x-1;
+//			break;
+//	}
+//}

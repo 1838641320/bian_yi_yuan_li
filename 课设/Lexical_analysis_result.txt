@@ -31,10 +31,10 @@ for               key_words
 (                 operator
 ID                i
 =                 operator
-integer           5
+integer           50
 ;                 operator
 ID                i
-<                 operator
+>                 operator
 integer           6
 ;                 operator
 ID                i
@@ -43,8 +43,8 @@ ID                i
 ID                i
 =                 operator
 ID                i
-+                 operator
-integer           1
+-                 operator
+integer           100
 ;                 operator
 if                key_words
 (                 operator
