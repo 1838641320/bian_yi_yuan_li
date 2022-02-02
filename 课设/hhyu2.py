@@ -1,4 +1,4 @@
-import yufa,parser
+import yufa, parser
 
 # 语法分析的结果
 result1 = list()  # 产生式
@@ -30,9 +30,10 @@ def deal(a: int):
 
 
 def fun_0(name: str, no: int, long: int):
-    global analyze, analyze_1, four, table, comp
+    global analyze, analyze_1, four, table, comp, word
     analyze_1 = analyze.copy()
     analyze.clear()
+    word = name
     deal(1)  # 赋值语句
     if len(analyze):
         value = analyze.pop()  # [类型，0，(值，Ti)] ; [类型,0,值]
@@ -61,8 +62,8 @@ def fun_0(name: str, no: int, long: int):
             four.append(['[]=', value[2], '-', name])
         else:
             table[name][2] = (long, value[2])
-            for i in range(len(value)):  # int a[5] ; int a[5]={1,2}
-                four.append(['[]=', name, i, value[i]])
+            for i in range(len(value[2])):  # int a[5] ; int a[5]={1,2}
+                four.append(['[]=', name, i, value[2][i]])
     else:
         print('错误提示:赋值号两边类型不匹配!')
         print(value, table[name], name)
@@ -165,6 +166,7 @@ def fun_10():
     analyze.append((name, no, long))
     deal(1)  # 赋值语句1 返回数据与函数的判断结果，值用analyze返回
     analyze.pop()  # 弹出本次定义变量的类型
+    print(analyze)
 
 
 # 产生式 数组标识 ::= eps
@@ -179,8 +181,10 @@ def fun_12():
     global result1, result2, analyze
     result1.pop(0)
     deal(2)  # [
-    deal(1)  # 常量表达式
-    long = analyze[-1][2]
+    l = deal(1)  # 常量表达式
+    long = l[-1]
+    print(long)
+    analyze.pop()
     deal(2)  # ]
     return list([0, long])
 
@@ -214,9 +218,10 @@ def fun_14():
     name = temp[0]
     table[name][1] = 2
     table[name][2] = can
-
+    analyze.pop()
     deal(2)  # )
     deal(2)  # {
+    analyze.pop()
     deal(1)  # local
     deal(2)  # }
 
@@ -227,12 +232,12 @@ def fun_15():
     result1.pop(0)
 
 
-# 产生式 赋值语句 ::= = 求值式
+# 产生式 赋值语句 ::= = 初始化赋值
 def fun_16():
     global result1, result2
     result1.pop(0)
     deal(2)  # =
-    deal(1)  # 求值式
+    deal(1)  # 初始化赋值
 
 
 # 产生式 常量表达式 ::= integer
@@ -240,7 +245,8 @@ def fun_17():
     global result1, result2, analyze
     result1.pop(0)
     analyze.append(['int', 0, result2[0]])
-    deal(2)  # integer
+    v = deal(2)  # integer
+    return list(['int', v])
 
 
 # 产生式 常量表达式 ::= float_constant
@@ -248,7 +254,8 @@ def fun_18():
     global result1, result2, analyze
     result1.pop(0)
     analyze.append(['float', 0, result2[0]])
-    deal(2)  # float_constant
+    v = deal(2)  # float_constant
+    return list(['float', v])
 
 
 # 产生式 常量表达式 ::= ID
@@ -261,6 +268,7 @@ def fun_19():
             print('错误提示:类型不匹配，不能赋值!')  # 都为数值
         else:
             analyze.append(table[x])  # 查看变量类型是否匹配，否则进行类型转换,返回一个带信息的值好处理
+            return x
     except:
         print('错误提示:用于赋值的变量未定义!')
         analyze.append(['unkonwn', 0, 0])
@@ -418,6 +426,7 @@ def fun_35():
     # deal(1)  # 赋值语句
     deal(1)  # 局部变量2
     analyze.pop()
+    print(analyze)
 
 
 # 产生式 局部变量2 ::= , ID 赋值语句 局部变量2
@@ -436,6 +445,7 @@ def fun_36():
     fun_0(name, no, 0)
     # deal(1)  # 赋值语句
     deal(1)  # 局部变量2
+    analyze.pop()
 
 
 # 产生式 局部变量2 ::= ;
@@ -561,74 +571,25 @@ def fun_47():
     deal(1)  # 求值式
 
 
-# 产生式 求值式 ::= integer 带符号右值
-def fun_48():
-    global result1, result2, analyze, comp, four, label
-    result1.pop(0)
-    num1 = deal(2)  # integer
-    deal(1)  # 带符号右值 info=[值，类型, 操作符]
-    info = analyze.pop()
+# 带符号右值
+def fun(num1: str, no: int):
+    global four, label
     t = label
-    if info[2] == '++' or info[2] == '--':
-        print('错误提示:运算符号不可用!')
-    if info[1] == 'default':  # 带符号右值 ::= eps
-        analyze.append(['int', 0, num1])
-    elif info[1] == 'int':
-        four.append([info[2], num1, info[0], 'T' + str(label)])
-        label += 1
-        # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['int', 0, t])
-    elif info[1] == 'double':
-        four.append([info[2], num1, info[0], 'T' + str(label)])
-        label += 1
-        # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['double', 0, t])
-    else:
-        print('错误提示:请先进行强制转换!')
-
-
-# 产生式 求值式 ::= float_constant 带符号右值
-def fun_49():
-    global result1, result2, analyze, comp, four, label
-    result1.pop(0)
-    num1 = deal(2)  # float_constant
     deal(1)  # 带符号右值
     info = analyze.pop()
-    t = label  # 暂存四元式中中间结果T的下标
-    if info[2] == '++' or info[2] == '--':
-        print('错误提示:运算符号不可用!')
-    if info[1] == 'default':
-        analyze.append(['float', 0, num1])
-    elif info[1] == 'float':
-        four.append([info[2], num1, info[0], 'T' + str(label)])
-        label += 1
-        # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['float', 0, t])
-    elif info[1] == 'double':
-        four.append([info[2], num1, info[0], 'T' + str(label)])
-        label += 1
-        # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['double', 0, t])
-    else:
-        print('错误提示:请先进行强制转换!')
-
-
-# 产生式 求值式 ::= ID 带符号右值
-def fun_50():
-    global result1, result2, analyze, comp, four, label, word
-    result1.pop(0)
-    num1 = deal(2)  # ID
-    word = num1
-    deal(1)  # 带符号右值
-    info = analyze.pop()
-    t = label
     try:
+        if not no:
+            if info[1] == 'default':
+                analyze.append([info[1], 0, 'T' + str(t)])
+            elif info[2] == '=':
+                four.append(['=', info[0], '-', 'T' + str(t)])
+            else:
+                four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
+                analyze.append([info[1], 0, 'T' + str(t + 1)])
+            return
         # ID = t
         if info[2] == '=':
-            if isinstance(info[0], tuple):
-                four.append(['=', 'T' + str(info[0][1]), '-', num1])
-            else:
-                four.append(['=', info[0], '-', num1])
+            four.append(['=', info[0], '-', num1])
         # x = ID 带符号右值
         elif info[1] == 'default':
             temp = table[num1][:2]
@@ -661,6 +622,88 @@ def fun_50():
             analyze.append([table[num1][0], 0, 'T' + str(t)])
         else:
             print('错误提示:请先进行强制转换!')
+    except KeyError:
+        print('错误提示:变量未定义!')
+    finally:
+        return info[2]
+
+
+# 产生式 求值式 ::= integer 带符号右值
+def fun_48():
+    global result1, result2, analyze, comp, four, label, word
+    result1.pop(0)
+    num1 = deal(2)  # integer
+    word = num1
+    deal(1)  # 带符号右值 info=[值，类型, 操作符]
+    info = analyze.pop()
+    t = label
+    if info[2] == '++' or info[2] == '--':
+        print('错误提示:运算符号不可用!')
+    if info[1] == 'default':  # 带符号右值 ::= eps
+        analyze.append(['int', 0, num1])
+    elif info[1] == 'int':
+        four.append([info[2], num1, info[0], 'T' + str(label)])
+        label += 1
+        # value = eval(str(num1) + info[2] + str(info[0]))
+        analyze.append(['int', 0, t])
+    elif info[1] == 'double':
+        four.append([info[2], num1, info[0], 'T' + str(label)])
+        label += 1
+        # value = eval(str(num1) + info[2] + str(info[0]))
+        analyze.append(['double', 0, t])
+    else:
+        print('错误提示:请先进行强制转换!')
+
+
+# 产生式 求值式 ::= float_constant 带符号右值
+def fun_49():
+    global result1, result2, analyze, comp, four, label, word
+    result1.pop(0)
+    num1 = deal(2)  # float_constant
+    word = num1
+    deal(1)  # 带符号右值
+    info = analyze.pop()
+    t = label  # 暂存四元式中中间结果T的下标
+    if info[2] == '++' or info[2] == '--':
+        print('错误提示:运算符号不可用!')
+    if info[1] == 'default':
+        analyze.append(['float', 0, num1])
+    elif info[1] == 'float':
+        four.append([info[2], num1, info[0], 'T' + str(label)])
+        label += 1
+        # value = eval(str(num1) + info[2] + str(info[0]))
+        analyze.append(['float', 0, t])
+    elif info[1] == 'double':
+        four.append([info[2], num1, info[0], 'T' + str(label)])
+        label += 1
+        # value = eval(str(num1) + info[2] + str(info[0]))
+        analyze.append(['double', 0, t])
+    else:
+        print('错误提示:请先进行强制转换!')
+
+
+# 产生式 求值式 ::= ID 数组标识 带符号右值
+def fun_50():
+    global result1, result2, analyze, comp, four, label, word
+    result1.pop(0)
+    num1 = deal(2)  # ID
+    print("num1:", num1)
+    word = num1
+    t = label
+    [no, long] = deal(1)  # 数组标识
+    print(no, long)
+    try:
+        if not no:  # 是数组
+            l = table[num1][2][0]  # (long,value)
+            if int(long) < int(l):
+                four.append(['[]=', num1, long, 'T' + str(t)])
+                fun(num1, no)
+                label += 1
+            else:
+                print('错误提示:数组越界!')
+            return
+        else:
+            fun(num1, no)
     except KeyError:
         print('错误提示:变量未定义!')
 
@@ -1008,11 +1051,98 @@ def fun_77():
     deal(1)  # local
 
 
+# 初始化赋值 ::= 数组赋值
+def fun_78():
+    global result1, result2
+    result1.pop(0)
+    deal(1)  # 数组赋值
+
+
+# 初始化赋值 ::= 求值式
+def fun_79():
+    global result1, result2
+    result1.pop(0)
+    deal(1)  # 求值式
+
+
+# 数组赋值 ::= { 常量表达式  赋值数列 }
+def fun_80():
+    global result1, result2, analyze, analyze_1, word
+    result1.pop(0)
+    deal(2)  # {
+    name = word
+    ty = table[name][0]
+    long = table[name][1]
+
+    value = list()
+    print(name, ty, long)
+    value.append(table[name][0])
+
+    value.append('1')
+    x = deal(1)  # 常量表达式
+    analyze.clear()
+
+    if x[0] == ty:
+        analyze.append(x[1])
+    else:
+        print('错误提示:元素类型与数组类型不符!')
+    analyze.append(ty)
+    deal(1)  # 赋值数列
+    deal(2)  # }
+    analyze.pop()  # 弹出ty
+    v = analyze.copy()
+    value.append(v)
+    analyze = analyze_1.copy()
+    analyze.append(value)
+
+
+# 赋值数列 ::= , 常量表达式 赋值数列
+def fun_81():
+    global result1, result2, analyze, analyze_1
+    result1.pop(0)
+    deal(2)  # ,
+    ty = analyze.pop()
+    x = deal(1)  # 常量表达式
+    analyze.pop()
+    if x[0] == ty:
+        analyze.append(x[1])
+    else:
+        print('错误提示:元素类型与数组类型不符!')
+    analyze.append(ty)
+    deal(1)  # 赋值数列
+
+
+# 赋值数列 ::= eps
+def fun_82():
+    global result1, result2
+    result1.pop(0)
+
+
+# local ::= 求值式 ; local
+def fun_83():
+    global result1, result2, analyze, analyze_1
+    result1.pop(0)
+    analyze_1 = analyze.copy()
+    analyze.clear()
+    deal(1)  # 求值式
+    analyze = analyze_1.copy()
+    deal(2)  # ;
+    deal(1)  # local
+
+
+# local ::= 语句 local
+def fun_84():
+    global result1, result2, analyze, analyze_1
+    result1.pop(0)
+    deal(1)  # 语句
+    deal(1)  # local
+
+
 def main():
     # 语义分析
     # 中间代码生成
     global result1, result2, four, table
-    result1, result2 = parser.main()
+    result1, result2 = yufa.main()
     print()
     deal(1)
     count = 1
@@ -1022,6 +1152,7 @@ def main():
         count += 1
     print(table)
     return four
+
 
 if __name__ == "__main__":
     main()
