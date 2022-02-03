@@ -171,12 +171,12 @@ def analysis(file)->bool:
 					if i!="eps":stack1.append(i)
 				parser_list.append(LL_1Table[X][tk])
 			except:break
-		print("状态栈")
-		print(stack1[-26:])
-		print("待分析单词")
-		for i in stack2[index:index+26]:
-			print(i[0],end=' ')
-		print('\n\n')
+		# print("状态栈")
+		# print(stack1[-26:])
+		# print("待分析单词")
+		# for i in stack2[index:index+26]:
+		# 	print(i[0],end=' ')
+		# print('\n\n')
 	return (0,0)
 
 def main():

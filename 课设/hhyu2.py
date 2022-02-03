@@ -20,11 +20,11 @@ def deal(a: int):
     if a == 2:  # 终结符
         temp = result2[0]
         result2.pop(0)
-        print(result2)
+        # print(result2)
         return temp
     else:
         g = result1[0] + 1
-        print(g)
+        # print(g)
         grammer = 'fun_' + str(g) + '()'
         return eval(grammer)
 
