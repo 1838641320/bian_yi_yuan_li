@@ -11,16 +11,19 @@ include io.inc
 	i dw 0
 	T2 dw 0
 	T3 dw 0
-	T6 dw 0
+	T4 dw 0
 	T7 dw 0
-	T13 dw 0
+	T8 dw 0
+	T14 dw 0
+	T15 dw 0
+	T16 dw 0
 	p dw 0
 	y dw 0
 	xx dw 0
 	qq dw 0
 	qqt dw 0
-	T14 dw 0
-	T15 dw 0
+	T17 dw 0
+	T18 dw 0
 	ppp dw 0
 .code
 .startup
@@ -40,7 +43,7 @@ line11:
 	mov bx,6
 	cmp ax,bx
 	jg line16
-	jmp line19
+	jmp line20
 line13:
 	mov ax,word ptr [i]
 	mov bx,1
@@ -54,50 +57,62 @@ line16:
 	mov bx,100
 	sub ax,bx
 	mov word ptr[T3],ax
-	mov ax,word ptr [T3]
+	mov ax,33
+	mov bx,word ptr [T3]
+	add ax,bx
+	mov word ptr[T4],ax
+	mov ax,word ptr [T4]
 	mov word ptr[i],ax
 	jmp line13
-line19:
+line20:
 	mov ax,word ptr [i]
 	mov bx,3
 	cmp ax,bx
-	jl line21
-	jmp line23
-line21:
+	jl line22
+	jmp line24
+line22:
 	mov ax,2
 	mov word ptr[dp],ax
-	jmp line24
-line23:
+	jmp line25
+line24:
 	mov ax,3
 	mov word ptr[dp],ax
-line24:
+line25:
 	mov ax,word ptr [i]
 	mov bx,6
 	cmp ax,bx
-	je line26
-	jmp line29
-line26:
+	je line27
+	jmp line30
+line27:
 	mov ax,word ptr [i]
 	mov bx,1
-	add ax,bx
-	mov word ptr[T6],ax
-	mov ax,word ptr [T6]
-	mov word ptr[i],ax
-	jmp line24
-line29:
-	mov ax,word ptr [i]
-	mov bx,9
 	add ax,bx
 	mov word ptr[T7],ax
 	mov ax,word ptr [T7]
 	mov word ptr[i],ax
+	jmp line25
+line30:
+	mov ax,word ptr [i]
+	mov bx,9
+	add ax,bx
+	mov word ptr[T8],ax
+	mov ax,word ptr [T8]
+	mov word ptr[i],ax
 	mov ax,9
 	mov word ptr[ccc+2*5],ax
-	mov ax,word ptr [ccc+2*0]
-	mov bx,word ptr [ccc+2*3]
+	mov ax,word ptr [ccc+2*3]
+	mov bx,49
+	sub ax,bx
+	mov word ptr[T14],ax
+	mov ax,7
+	mov bx,word ptr [T14]
 	add ax,bx
-	mov word ptr[T13],ax
-	mov ax,word ptr [T13]
+	mov word ptr[T15],ax
+	mov ax,word ptr [ccc+2*0]
+	mov bx,word ptr [T15]
+	add ax,bx
+	mov word ptr[T16],ax
+	mov ax,word ptr [T16]
 	mov word ptr[b+2*1],ax
 	mov ax,0
 	mov word ptr[p],ax
@@ -112,12 +127,12 @@ line29:
 	mov ax,word ptr [y]
 	mov bx,214745
 	add ax,bx
-	mov word ptr[T14],ax
+	mov word ptr[T17],ax
 	mov ax,word ptr [xx]
-	mov bx,word ptr [T14]
+	mov bx,word ptr [T17]
 	add ax,bx
-	mov word ptr[T15],ax
-	mov ax,word ptr [T14]
+	mov word ptr[T18],ax
+	mov ax,word ptr [T17]
 	mov word ptr[ppp],ax
 .exit
 end
