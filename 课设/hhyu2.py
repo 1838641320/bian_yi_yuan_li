@@ -614,10 +614,12 @@ def fun(num1: str, no: int):
             if info[1] == 'default':
                 analyze.append([info[1], 0, 'T' + str(t)])
             elif info[2] == '=':
-                four.append(['=', info[0], '-', 'T' + str(t)])
+                pass
+                # four.append(['=', info[0], '-', 'T' + str(t)])
             else:# 数组和常量相加
-                four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
-                analyze.append([info[1], 0, 'T' + str(t + 1)])
+                analyze.append([info[1], 0, 'T' + str(label)])
+                pass
+                # four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
             return
         # ID = t
         if info[2] == '=':
@@ -657,7 +659,7 @@ def fun(num1: str, no: int):
     except KeyError:
         print('错误提示:变量未定义!')
     finally:
-        return info[2]
+        return info
 
 
 # 产生式 求值式 ::= integer 带符号右值
@@ -677,12 +679,12 @@ def fun_48():
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
         # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['int', 0, t])
+        analyze.append(['int', 0, 'T' + str(t)])
     elif info[1] == 'double':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
         # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['double', 0, t])
+        analyze.append(['double', 0, 'T' + str(t)])
     else:
         print('错误提示:请先进行强制转换!')
 
@@ -704,12 +706,12 @@ def fun_49():
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
         # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['float', 0, t])
+        analyze.append(['float', 0, 'T' + str(t)])
     elif info[1] == 'double':
         four.append([info[2], num1, info[0], 'T' + str(label)])
         label += 1
         # value = eval(str(num1) + info[2] + str(info[0]))
-        analyze.append(['double', 0, t])
+        analyze.append(['double', 0, 'T' + str(t)])
     else:
         print('错误提示:请先进行强制转换!')
 
@@ -730,12 +732,12 @@ def fun_50():
             if int(long) < int(l):
                 four.append(['[]=', num1, long, 'T' + str(t)])
                 op = fun(num1, no)
-                if(t!=label-1):
-                    if(op == '='):
-                        four.append(['=', 'T' + str(label - 1), '-', 'T' + str(t)])
-                    else :
-                        four.append([op, 'T'+str(t), 'T' + str(label - 1), 'T' + str(label)])
-                        label+=1
+                if(len(analyze)):analyze[-1][0]='int'
+                if(op[2] == '='):
+                    four.append(['=', op[0], '-', 'T' + str(t)])
+                else :
+                    four.append([op[2], 'T'+str(t), str(op[0]), 'T' + str(label)])
+                    label+=1
             else:
                 print('错误提示:数组越界!')
             return

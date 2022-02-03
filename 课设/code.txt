@@ -3,14 +3,14 @@ int main(){
 	char *s="hello world";
 	double dp=0.5;
 	int i;
-	for(i=50;i>6;i++) i=i-100;
+	for(i=50;i>6;i++) i=33+i-100;
 	if(i<3) dp=2;
 	else dp=3;
 	while(i==6) {i=i+1;}
 	//return 666;
 	do{i=i+9;}while(i<200);
 	ccc[5]=9;
-	b[1]=ccc[0]+7+ccc[3];
+	b[1]=ccc[0]+7+ccc[3]-49;
 }// hello
 int p=0;
 

@@ -55,6 +55,8 @@ ID                i
 )                 operator
 ID                i
 =                 operator
+integer           33
++                 operator
 ID                i
 -                 operator
 integer           100
@@ -127,6 +129,8 @@ ID                ccc
 [                 operator
 integer           3
 ]                 operator
+-                 operator
+integer           49
 ;                 operator
 }                 operator
 int               key_words
