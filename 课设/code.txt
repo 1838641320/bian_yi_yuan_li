@@ -1,26 +1,26 @@
-int x=99,b[20]={5,4,8},ccc[7];
-int main(){
-	char *s="hello world";
-	double dp=0.5;
-	int i;
-	for(i=50;i>6;i++) i=33+i-100;
-	if(i<3) dp=2;
-	else dp=3;
-	while(i==6) {i=i+1;}
-	//return 666;
-	do{i=i+9;}while(i<200);
-	ccc[5]=9;
-	b[1]=ccc[0]+7+ccc[3]-49;
-}// hello
-int p=0;
+//int x=99,b[20]={5,4,8},ccc[7];
+//int main(){
+//	char *s="hello world";
+//	double dp=0.5;
+//	int i;
+//	for(i=50;i>6;i++) i=33+i-100;
+//	if(i<3) dp=2;
+//	else dp=3;
+//	while(i==6) {i=i+1;}
+//	//return 666;
+//	do{i=i+9;}while(i<200);
+//	ccc[5]=9;
+//	b[1]=ccc[0]+7+ccc[3]-49;
+//}// hello
+//int p=0;
+//
+//void func(){
+//
+//}
 
-void func(){
-
-}
-
-int y=32;
-int62 xx=t3,qq=y,qqt=20;
-int62 ppp=xx+y+TRD;
+//int y=32;
+//int62 xx=t3,qq=y,qqt=20;
+//int62 ppp=xx+y+TRD;
 
 //int main(){
 //	int x=8,y=1;
@@ -33,3 +33,16 @@ int62 ppp=xx+y+TRD;
 //			break;
 //	}
 //}
+
+
+int x=99,b[20]={5,4,8},ccc[7];
+int main(){
+	if(x>5) {666;}
+	ccc[5]=9;
+	b[1]=ccc[0]+ccc[1];
+	b[1]=ccc[0];
+	b[1]=ccc[0]+ccc[1]+1;
+	b[1]=ccc[0]+1+1;
+	b[1]=1+ccc[0]+1;
+}// hello
+int p=0;

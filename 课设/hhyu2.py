@@ -733,11 +733,12 @@ def fun_50():
                 four.append(['[]=', num1, long, 'T' + str(t)])
                 op = fun(num1, no)
                 if(len(analyze)):analyze[-1][0]='int'
-                if(op[2] == '='):
-                    four.append(['=', op[0], '-', 'T' + str(t)])
-                else :
-                    four.append([op[2], 'T'+str(t), str(op[0]), 'T' + str(label)])
-                    label+=1
+                if(op[1]!='default'):
+                    if(op[2] == '='):
+                        four.append(['=', op[0], '-', 'T' + str(t)])
+                    else :
+                        four.append([op[2], 'T'+str(t), str(op[0]), 'T' + str(label)])
+                        label+=1
             else:
                 print('错误提示:数组越界!')
             return
