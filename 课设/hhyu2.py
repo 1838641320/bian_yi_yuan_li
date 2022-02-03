@@ -45,6 +45,7 @@ def fun_0(name: str, no: int, long: int):
         if no:
             four.append(['=', 0, '-', name])
         elif table[name][0] == 'string':
+            four.append(['[]=', name, long, '-'])
             four.append(['=', "", '-', name])
         else:
             four.append(['[]=', name, long, '-'])
@@ -62,6 +63,7 @@ def fun_0(name: str, no: int, long: int):
             four.append(['[]=', value[2], '-', name])
         else:
             table[name][2] = (long, value[2])
+            four.append(['[]=', name, long, '-'])
             for i in range(len(value[2])):  # int a[5] ; int a[5]={1,2}
                 four.append(['[]=', name, i, value[2][i]])
     else:
@@ -112,7 +114,7 @@ def fun_5():
     global result1, result2
     result1.pop(0)
     deal(2)  # int62
-    return 'int62'
+    return 'int'
 
 
 # 产生式 type ::= float
@@ -165,7 +167,7 @@ def fun_10():
         no = 0
     analyze.append((name, no, long))
     deal(1)  # 赋值语句1 返回数据与函数的判断结果，值用analyze返回
-    if(ty!='void'):analyze.pop()  # 弹出本次定义变量的类型
+    if len(analyze): analyze.pop()  # 弹出本次定义变量的类型
     print(analyze)
 
 
@@ -501,12 +503,12 @@ def fun_38():
     analyze = analyze_1.copy()
 
 
-# 产生式 语句 ::= { 语句 }
+# 产生式 语句 ::= { local }
 def fun_39():
     global result1, result2
     result1.pop(0)
     deal(2)  # {
-    deal(1)  # 语句
+    deal(1)  # local
     deal(2)  # }
 
 
@@ -602,6 +604,9 @@ def fun_47():
 def fun(num1: str, no: int):
     global four, label
     t = label
+    if not no:
+        label += 1
+
     deal(1)  # 带符号右值
     info = analyze.pop()
     try:
@@ -610,7 +615,7 @@ def fun(num1: str, no: int):
                 analyze.append([info[1], 0, 'T' + str(t)])
             elif info[2] == '=':
                 four.append(['=', info[0], '-', 'T' + str(t)])
-            else:
+            else:# 数组和常量相加
                 four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
                 analyze.append([info[1], 0, 'T' + str(t + 1)])
             return
@@ -724,8 +729,13 @@ def fun_50():
             l = table[num1][2][0]  # (long,value)
             if int(long) < int(l):
                 four.append(['[]=', num1, long, 'T' + str(t)])
-                fun(num1, no)
-                label += 1
+                op = fun(num1, no)
+                if(t!=label-1):
+                    if(op == '='):
+                        four.append(['=', 'T' + str(label - 1), '-', 'T' + str(t)])
+                    else :
+                        four.append([op, 'T'+str(t), 'T' + str(label - 1), 'T' + str(label)])
+                        label+=1
             else:
                 print('错误提示:数组越界!')
             return
