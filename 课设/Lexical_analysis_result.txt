@@ -7,6 +7,14 @@ ID                b
 [                 operator
 integer           20
 ]                 operator
+=                 operator
+{                 operator
+integer           5
+,                 operator
+integer           4
+,                 operator
+integer           8
+}                 operator
 ;                 operator
 int               key_words
 ID                main

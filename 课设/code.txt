@@ -1,4 +1,4 @@
-int x=99,b[20];
+int x=99,b[20]={5,4,8};
 int main(){
 	char *s="hello world";
 	double dp=0.5;

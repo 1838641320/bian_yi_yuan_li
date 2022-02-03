@@ -165,7 +165,7 @@ def fun_10():
         no = 0
     analyze.append((name, no, long))
     deal(1)  # 赋值语句1 返回数据与函数的判断结果，值用analyze返回
-    analyze.pop()  # 弹出本次定义变量的类型
+    if(ty!='void'):analyze.pop()  # 弹出本次定义变量的类型
     print(analyze)
 
 
@@ -518,44 +518,71 @@ def fun_40():
     deal(2)  # ;
 
 
-# 产生式 语句 ::= for语句 语句
+# 初始化赋值 ::= 数组赋值
 def fun_41():
     global result1, result2
     result1.pop(0)
-    deal(1)  # for语句
-    deal(1)  # 语句
+    deal(1)  # 数组赋值
 
 
-# 产生式 语句 ::= if语句 语句
+# 初始化赋值 ::= 求值式
 def fun_42():
     global result1, result2
     result1.pop(0)
-    deal(1)  # if语句
-    deal(1)  # 语句
+    deal(1)  # 求值式
 
 
-# 产生式 语句 ::= while语句 语句
+# 数组赋值 ::= { 常量表达式  赋值数列 }
 def fun_43():
-    global result1, result2
+    global result1, result2, analyze, analyze_1, word
     result1.pop(0)
-    deal(1)  # while语句
-    deal(1)  # 语句
+    deal(2)  # {
+    name = word
+    ty = table[name][0]
+    long = table[name][1]
+
+    value = list()
+    print(name, ty, long)
+    value.append(table[name][0])
+
+    value.append('1')
+    x = deal(1)  # 常量表达式
+    analyze.clear()
+
+    if x[0] == ty:
+        analyze.append(x[1])
+    else:
+        print('错误提示:元素类型与数组类型不符!')
+    analyze.append(ty)
+    deal(1)  # 赋值数列
+    deal(2)  # }
+    analyze.pop()  # 弹出ty
+    v = analyze.copy()
+    value.append(v)
+    analyze = analyze_1.copy()
+    analyze.append(value)
 
 
-# 产生式 语句 ::= do_while语句 语句
+# 赋值数列 ::= , 常量表达式 赋值数列
 def fun_44():
-    global result1, result2
+    global result1, result2, analyze, analyze_1
     result1.pop(0)
-    deal(1)  # do_while语句
-    deal(1)  # 语句
+    deal(2)  # ,
+    ty = analyze.pop()
+    x = deal(1)  # 常量表达式
+    analyze.pop()
+    if x[0] == ty:
+        analyze.append(x[1])
+    else:
+        print('错误提示:元素类型与数组类型不符!')
+    analyze.append(ty)
+    deal(1)  # 赋值数列
 
 
-# 产生式 语句 ::= switch语句 语句
+# 赋值数列 ::= eps
 def fun_45():
     global result1, result2
     result1.pop(0)
-    deal(1)  # switch语句
-    deal(1)  # 语句
 
 
 # 产生式 可空求值式 ::= eps
@@ -1051,87 +1078,8 @@ def fun_77():
     deal(1)  # local
 
 
-# 初始化赋值 ::= 数组赋值
-def fun_78():
-    global result1, result2
-    result1.pop(0)
-    deal(1)  # 数组赋值
-
-
-# 初始化赋值 ::= 求值式
-def fun_79():
-    global result1, result2
-    result1.pop(0)
-    deal(1)  # 求值式
-
-
-# 数组赋值 ::= { 常量表达式  赋值数列 }
-def fun_80():
-    global result1, result2, analyze, analyze_1, word
-    result1.pop(0)
-    deal(2)  # {
-    name = word
-    ty = table[name][0]
-    long = table[name][1]
-
-    value = list()
-    print(name, ty, long)
-    value.append(table[name][0])
-
-    value.append('1')
-    x = deal(1)  # 常量表达式
-    analyze.clear()
-
-    if x[0] == ty:
-        analyze.append(x[1])
-    else:
-        print('错误提示:元素类型与数组类型不符!')
-    analyze.append(ty)
-    deal(1)  # 赋值数列
-    deal(2)  # }
-    analyze.pop()  # 弹出ty
-    v = analyze.copy()
-    value.append(v)
-    analyze = analyze_1.copy()
-    analyze.append(value)
-
-
-# 赋值数列 ::= , 常量表达式 赋值数列
-def fun_81():
-    global result1, result2, analyze, analyze_1
-    result1.pop(0)
-    deal(2)  # ,
-    ty = analyze.pop()
-    x = deal(1)  # 常量表达式
-    analyze.pop()
-    if x[0] == ty:
-        analyze.append(x[1])
-    else:
-        print('错误提示:元素类型与数组类型不符!')
-    analyze.append(ty)
-    deal(1)  # 赋值数列
-
-
-# 赋值数列 ::= eps
-def fun_82():
-    global result1, result2
-    result1.pop(0)
-
-
-# local ::= 求值式 ; local
-def fun_83():
-    global result1, result2, analyze, analyze_1
-    result1.pop(0)
-    analyze_1 = analyze.copy()
-    analyze.clear()
-    deal(1)  # 求值式
-    analyze = analyze_1.copy()
-    deal(2)  # ;
-    deal(1)  # local
-
-
 # local ::= 语句 local
-def fun_84():
+def fun_78():
     global result1, result2, analyze, analyze_1
     result1.pop(0)
     deal(1)  # 语句
@@ -1142,7 +1090,7 @@ def main():
     # 语义分析
     # 中间代码生成
     global result1, result2, four, table
-    result1, result2 = yufa.main()
+    result1, result2 = parser.main()
     print()
     deal(1)
     count = 1
