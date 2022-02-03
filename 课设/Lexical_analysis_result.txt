@@ -26,16 +26,6 @@ ID                main
 (                 operator
 )                 operator
 {                 operator
-if                key_words
-(                 operator
-ID                x
->                 operator
-integer           5
-)                 operator
-{                 operator
-integer           666
-;                 operator
-}                 operator
 ID                ccc
 [                 operator
 integer           5
