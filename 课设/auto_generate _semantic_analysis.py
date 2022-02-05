@@ -1,5 +1,5 @@
 
-grammar_file="grammer.txt"
+grammar_file="grammer2.txt"
 terminal_file="terminal.txt"
 result_file="generated_for_semantic_analysis.py"
 
@@ -31,7 +31,7 @@ result1, result2=[],[]
 def deal(x):1\n\n
 ''')
 
-index=-1
+index=0
 
 for line in grammar:
 	index+=1
