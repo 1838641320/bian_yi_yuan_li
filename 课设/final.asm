@@ -18,6 +18,13 @@ include io.inc
 	T15 dw 0
 	T16 dw 0
 	p dw 0
+	y dw 0
+	xx dw 0
+	qq dw 0
+	qqt dw 0
+	T17 dw 0
+	T18 dw 0
+	ppp dw 0
 .code
 .startup
 	mov ax,99
@@ -116,5 +123,23 @@ line31:
 	mov word ptr [b+2*1],ax
 	mov ax,0
 	mov word ptr [p],ax
+	mov ax,32
+	mov word ptr [y],ax
+	mov ax,1801
+	mov word ptr [xx],ax
+	mov ax,word ptr [y]
+	mov word ptr [qq],ax
+	mov ax,20
+	mov word ptr [qqt],ax
+	mov ax,word ptr [y]
+	mov bx,214745
+	add ax,bx
+	mov word ptr [T17],ax
+	mov ax,word ptr [xx]
+	mov bx,word ptr [T17]
+	add ax,bx
+	mov word ptr [T18],ax
+	mov ax,word ptr [T17]
+	mov word ptr [ppp],ax
 .exit
 end
