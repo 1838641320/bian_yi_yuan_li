@@ -1,4 +1,4 @@
-import yufa, parser
+import parser
 
 # 语法分析的结果
 result1 = list()  # 产生式
