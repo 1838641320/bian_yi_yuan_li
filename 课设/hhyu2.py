@@ -160,7 +160,7 @@ def fun_10():
 	temp = deal(1)  # 数组标识
 	no = temp[0]
 	long = temp[1]
-	table[name] = [ty, int(not no), 0]  # 值先设为默认
+	table[name] = [ty, int(not no), long]  # 值先设为默认
 	if ty == 'char *':
 		table[name][1] = 1
 		table[name][0] = 'string'
@@ -411,20 +411,22 @@ def fun_34():
 	return 0
 
 
-# 产生式 局部变量 ::= type ID 赋值语句 局部变量2
+# 产生式 局部变量 ::= type ID 数组标识 赋值语句 局部变量2
 def fun_35():
 	global result1, result2, table, analyze
 	result1.pop(0)
 	ty = deal(1)  # type
 	analyze.append(ty)
 	name = deal(2)  # ID
-	table[name] = [ty, 0, 0]
-	no = 1
+	n = deal(1)  # 数组标识
+	no = n[0]
+	long = n[1]
+	table[name] = [ty, int(not no), long]  # 值先设为默认
 	if ty == 'char *':
 		table[name][1] = 1
 		table[name][0] = 'string'
 		no = 0
-	fun_0(name, no, 0)
+	fun_0(name, no, long)
 	# deal(1)  # 赋值语句
 	deal(1)  # 局部变量2
 	analyze.pop()
@@ -442,12 +444,11 @@ def fun_36():
 	no = n[0]
 	long = n[1]
 	table[name] = [ty, int(not no), long]  # 值先设为为默认，求值之后再回填
-	no = 1
 	if ty == 'char *':
 		table[name][1] = 1
 		table[name][0] = 'string'
 		no = 0
-	fun_0(name, no, 0)
+	fun_0(name, no, long)
 	# deal(1)  # 赋值语句
 	deal(1)  # 局部变量2
 	# analyze.pop()

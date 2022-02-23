@@ -34,10 +34,10 @@ int x=99,b[20]={5,4,8},ccc[7],ppp1=80;
 //int y=32;
 //int62 xx=t3,qq=y,qqt=20;
 //int62 ppp=xx+y+TRD;
-
+int qqq23[23];
 int main2(){
 	int x=6,y=1;
-	int z=x+y+9;
+	int z[5];
 	switch(x){
 		case 6:
 			x=23;
