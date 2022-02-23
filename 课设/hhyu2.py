@@ -29,7 +29,7 @@ def deal(a: int):
 		return eval(grammer)
 
 
-def fun_0(name: str, no: int, long: int):
+def fun_0(name: str, no: int, long: int):# 包括了赋值语句,赋值语句的deal在这里
 	global analyze, analyze_1, four, table, comp, word
 	analyze_1 = analyze.copy()
 	analyze.clear()
@@ -431,14 +431,17 @@ def fun_35():
 	print(analyze)
 
 
-# 产生式 局部变量2 ::= , ID 赋值语句 局部变量2
+# 产生式 局部变量2 ::= , ID 数组标识 赋值语句 局部变量2
 def fun_36():
 	global result1, result2
 	result1.pop(0)
 	deal(2)  # ,
-	name = deal(2)  # ID
 	ty = analyze[-1]
-	table[name] = [ty, 0, 0]
+	name = deal(2)  # ID
+	n = deal(1)  # 数组标识
+	no = n[0]
+	long = n[1]
+	table[name] = [ty, int(not no), long]  # 值先设为为默认，求值之后再回填
 	no = 1
 	if ty == 'char *':
 		table[name][1] = 1
@@ -447,7 +450,7 @@ def fun_36():
 	fun_0(name, no, 0)
 	# deal(1)  # 赋值语句
 	deal(1)  # 局部变量2
-	analyze.pop()
+	# analyze.pop()
 
 
 # 产生式 局部变量2 ::= ;

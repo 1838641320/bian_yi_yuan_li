@@ -6,25 +6,12 @@ include io.inc
 	x dw 0
 	b dw 20 dup(0)
 	ccc dw 7 dup(0)
-	s db "hello world",0
-	dp dw 0
-	i dw 0
-	T2 dw 0
-	T3 dw 0
-	T4 dw 0
-	T7 dw 0
-	T8 dw 0
-	T14 dw 0
-	T15 dw 0
-	T16 dw 0
-	p dw 0
+	ppp1 dw 0
 	y dw 0
-	xx dw 0
-	qq dw 0
-	qqt dw 0
-	T17 dw 0
-	T18 dw 0
-	ppp dw 0
+	T1 dw 0
+	T2 dw 0
+	z dw 0
+	T3 dw 0
 .code
 .startup
 	mov ax,99
@@ -32,114 +19,45 @@ include io.inc
 	mov word ptr[b+2*0],5
 	mov word ptr[b+2*1],4
 	mov word ptr[b+2*2],8
-	mov ax,0
-	mov word ptr [dp],ax
-	mov ax,0
-	mov word ptr [i],ax
-	call readsiw
-	mov word ptr [i],ax
-	call dispcrlf
-line11:
-	mov ax,word ptr [i]
-	cmp ax,6
-	jg line16
-	jmp line21
-line13:
-	mov ax,word ptr [i]
-	mov bx,1
+	mov ax,80
+	mov word ptr [ppp1],ax
+	mov ax,6
+	mov word ptr [x],ax
+	mov ax,1
+	mov word ptr [y],ax
+	mov ax,word ptr [y]
+	mov bx,9
+	add ax,bx
+	mov word ptr [T1],ax
+	mov ax,word ptr [x]
+	mov bx,word ptr [T1]
 	add ax,bx
 	mov word ptr [T2],ax
-	mov ax,word ptr [T2]
-	mov word ptr [i],ax
-	jmp line11
+	mov ax,word ptr [T1]
+	mov word ptr [z],ax
+	mov ax,word ptr [x]
+	cmp ax,6
+	je line15
+	jmp line16
+line15:
+	mov ax,23
+	mov word ptr [x],ax
 line16:
-	mov ax,word ptr [i]
-	mov bx,100
+	mov ax,word ptr [x]
+	cmp ax,4
+	je line18
+	jmp line21
+line18:
+	mov ax,word ptr [x]
+	mov bx,1
 	sub ax,bx
 	mov word ptr [T3],ax
-	mov ax,33
-	mov bx,word ptr [T3]
-	add ax,bx
-	mov word ptr [T4],ax
-	mov ax,word ptr [T4]
-	mov word ptr [i],ax
-	mov ax,word ptr [i]
-	call dispsiw
-	call dispcrlf
-	jmp line13
+	mov ax,word ptr [T3]
+	mov word ptr [x],ax
+	jmp line21
 line21:
-	mov ax,word ptr [i]
-	cmp ax,3
-	jl line23
-	jmp line25
-line23:
-	mov ax,2
-	mov word ptr [dp],ax
-	jmp line26
-line25:
-	mov ax,3
-	mov word ptr [dp],ax
-line26:
-	mov ax,word ptr [i]
-	cmp ax,6
-	je line28
-	jmp line31
-line28:
-	mov ax,word ptr [i]
-	mov bx,1
-	add ax,bx
-	mov word ptr [T7],ax
-	mov ax,word ptr [T7]
-	mov word ptr [i],ax
-	jmp line26
-line31:
-	mov ax,word ptr [i]
-	call dispsiw
-	call dispcrlf
 	mov ax,word ptr [x]
 	call dispsiw
 	call dispcrlf
-	mov ax,word ptr [i]
-	mov bx,9
-	add ax,bx
-	mov word ptr [T8],ax
-	mov ax,word ptr [T8]
-	mov word ptr [i],ax
-	mov ax,9
-	mov word ptr [ccc+2*5],ax
-	mov ax,word ptr [ccc+2*3]
-	mov bx,49
-	sub ax,bx
-	mov word ptr [T14],ax
-	mov ax,7
-	mov bx,word ptr [T14]
-	add ax,bx
-	mov word ptr [T15],ax
-	mov ax,word ptr [ccc+2*0]
-	mov bx,word ptr [T15]
-	add ax,bx
-	mov word ptr [T16],ax
-	mov ax,word ptr [T16]
-	mov word ptr [b+2*1],ax
-	mov ax,0
-	mov word ptr [p],ax
-	mov ax,32
-	mov word ptr [y],ax
-	mov ax,1801
-	mov word ptr [xx],ax
-	mov ax,word ptr [y]
-	mov word ptr [qq],ax
-	mov ax,20
-	mov word ptr [qqt],ax
-	mov ax,word ptr [y]
-	mov bx,214745
-	add ax,bx
-	mov word ptr [T17],ax
-	mov ax,word ptr [xx]
-	mov bx,word ptr [T17]
-	add ax,bx
-	mov word ptr [T18],ax
-	mov ax,word ptr [T17]
-	mov word ptr [ppp],ax
 .exit
 end
