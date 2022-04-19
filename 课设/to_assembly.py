@@ -81,7 +81,9 @@ def main():
 				code_seg+=['\txor dx,dx']
 				code_seg+=['\tidiv bx']
 			code_seg+=['\tmov {},ax'.format(get_loc(line[3]))]
-	
+	line_num+=1
+	if(line_num in used_line_num):code_seg+=["line{}:".format(line_num)]
+
 	# 头尾工作
 	result=[".model small\ninclude io.inc\n.686P\n.stack 200h\n.data"]
 	for _ in data_seg:result+=["\t{} ".format(_)+data_seg[_]]
