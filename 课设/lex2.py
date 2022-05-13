@@ -90,7 +90,7 @@ def remove_line_note(s:str):
 def main()->list:
 	pre_deal.main()
 	global result,is_dim
-	fin =open("code.txt","r",encoding="UTF-8")
+	fin =open("code2.txt","r",encoding="UTF-8")
 	fout=open("Lexical_analysis_result.txt","w",encoding="UTF-8")
 	intp=fin.readlines()
 	for i in range(1,len(intp)):intp[0]+=intp[i]

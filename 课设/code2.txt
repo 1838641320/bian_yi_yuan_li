@@ -1,0 +1,14 @@
+int p_x;int p_y;int q_x;int q_y;int62 x=9;
+
+
+
+int main(){
+	int i=0;
+	for(i=0;i<9;i++){
+		if(i==4){
+			x=6;
+		}
+	}
+	x=x+5;
+	printf("%d\n",x);
+}

@@ -80,7 +80,7 @@ def remove_struct():
 def main():
 
 	remove_struct()
-	fout=open("code.txt","w",encoding="UTF-8")
+	fout=open("code2.txt","w",encoding="UTF-8")
 	fout.write(result)
 	fout.close()
 
