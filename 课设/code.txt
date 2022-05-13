@@ -1,62 +1,14 @@
-int x=99,b[20]={5,4,8},ccc[7],ppp1=80;
-//int main(){
-//	char *s="hello world";
-//	double dp=0.5;
-//	int i;
-//	scanf("%d",&i);
-//	for(;i>6;i++) {
-//		i=33+i-100;
-//		printf("%d",i);
-//	}
-//	if(i<3) dp=2;
-//	else dp=3;
-//	while(i==6) {i=i+1;}
-//	printf("%d%d",i,x);
-//	//return 666;
-//	do{i=i+9;}while(i<200);
-//	ccc[5]=9;
-//	b[1]=ccc[0]+7+ccc[3]-49;
-//	switch(x){
-//		case 99:
-//			printf("%d",x);
-//			ccc[0]=ccc[0]+1;
-//		case 66:
-//			x=33;
-//			break;
-//	}
-//}  // hello
-//int p=0;
-//
-//void func(){
-//
-//}
+int p_x;int p_y;int q_x;int q_y;int62 x=9;
 
-//int y=32;
-//int62 xx=t3,qq=y,qqt=20;
-//int62 ppp=xx+y+TRD;
-int qqq23[23];
-int main2(){
-	int x=6,y=1;
-	int z[5];
-	switch(x){
-		case 6:
-			x=23;
-		case 4:
-			x=x-1;
-			break;
+
+
+int main(){
+	int i=0;
+	for(i=0;i<9;i++){
+		if(i==4){
+			x=6;
+		}
 	}
-	printf("%d",x);
+	x=x+5;
+	printf("%d\n",x);
 }
-
-
-//int x=99,b[20]={5,4,8},ccc[7];
-//int main(){
-//	//if(x>5) {666;}
-//	ccc[5]=9;
-//	b[1]=ccc[0]+ccc[1];
-//	b[1]=ccc[0];
-//	b[1]=ccc[0]+ccc[1]+1;
-//	b[1]=ccc[0]+1+1;
-//	b[1]=1+ccc[0]+1;
-//}// hello
-//int p=0;

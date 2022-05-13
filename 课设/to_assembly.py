@@ -61,7 +61,7 @@ def main():
 				code_seg+=['\tmov word ptr[{}+2*{}],{}'.format(line[1],line[2],line[3])]
 				continue
 		elif(line[0][0]=='j'):# 跳转
-			jmp_dic={'j>':'jg','j=':'je','j<':'jl','j':'jmp'}
+			jmp_dic={'j>':'jg','j=':'je','j<':'jl','j':'jmp','j==':'je'}
 			if(line[0]!='j'):
 				get_v(line[1],'ax')
 				code_seg+=['\tcmp ax,{}'.format(get_loc(line[2]))]
