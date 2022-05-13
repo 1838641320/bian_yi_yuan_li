@@ -1,14 +1,11 @@
 
 import re
 
+type_info=['int','char','long','float','double','short','signed','unsigned']
 fin =open("code.txt","r",encoding="UTF-8")
-
 text=fin.readlines()
 for i in range(1,len(text)):text[0]+=text[i]
 text=str(text[0])
-
-type_info=['int','char','long','float','double','short','signed','unsigned']
-
 result=''
 
 def mysplite(s:str,sep:str,del_:str)->list:
@@ -76,11 +73,16 @@ def remove_struct():
 	while(1):
 		if(i>=len(text)):break
 		if(text[i]=='.' and (not text[i+1].isdigit())):
-			text=text[0:i]+'_'+text[i+1:-1]
+			text=text[0:i]+'_'+text[i+1:]
 		i+=1
 	result=result+text
 
-remove_struct()
-fout=open("code.txt","w",encoding="UTF-8")
-fout.write(result)
-fout.close()
+def main():
+
+	remove_struct()
+	fout=open("code.txt","w",encoding="UTF-8")
+	fout.write(result)
+	fout.close()
+
+
+if __name__=='__main__':main()

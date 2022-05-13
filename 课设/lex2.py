@@ -1,5 +1,6 @@
 import sys
 import re
+import pre_deal
 
 MAXL=80
 result=[]
@@ -87,6 +88,7 @@ def remove_line_note(s:str):
 	return ''.join(s)
 
 def main()->list:
+	pre_deal.main()
 	global result,is_dim
 	fin =open("code.txt","r",encoding="UTF-8")
 	fout=open("Lexical_analysis_result.txt","w",encoding="UTF-8")

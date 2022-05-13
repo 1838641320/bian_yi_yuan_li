@@ -1,4 +1,4 @@
-import parser
+import parser_
 
 # 语法分析的结果
 result1 = list()  # 产生式
@@ -1166,7 +1166,7 @@ def main():
 	# 语义分析
 	# 中间代码生成
 	global result1, result2, four, table
-	result1, result2 = parser.main()
+	result1, result2 = parser_.main()
 	print()
 	deal(1)
 	count = 1
