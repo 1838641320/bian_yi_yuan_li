@@ -46,17 +46,6 @@ def find_number(s:str)->tuple:
 	# if(integer==None):return (0,)
 	seg=floating.span()[1]
 	ty='integer' if integer==None or floating.span()[1]<=integer.span()[1] else 'float_constant'
-	if(ty=='integer' or (is_dim&4)): # for int62
-		int62=re.search(r"^[-+]?([1-9a-zA-Z][0-9a-zA-Z]*|0)",s)
-		if((is_dim&4) or integer==None or int62.span()[1]>integer.span()[1]):
-			seg=int62.span()[1]
-			st=s[0:seg]
-			value=0
-			for c in st:
-				if(c.isdigit()):value=value*62+int(c)
-				elif(c.islower()):value=value*62+ord(c)-97+10
-				elif(c.isupper()):value=value*62+ord(c)-ord('A')+36
-			return ("integer",str(value),seg)
 	return (ty,s[0:seg])
 
 def find_string_or_char(s:str)->tuple:

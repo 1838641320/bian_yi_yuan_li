@@ -904,7 +904,7 @@ def fun_65():
 	result1.pop(0)
 	findex = analyze.pop()
 	deal(1)  # 语句
-	four[findex][3] = len(four) + 2
+	four[findex][3] = len(four) + 1
 	deal(1)  # if语句3
 
 
