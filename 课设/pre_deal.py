@@ -1,7 +1,7 @@
 
 import re
 
-type_info=['int','char','*','long','float','double','short','signed','unsigned']
+type_info=['int','char','*','char*','long','float','double','short','signed','unsigned']
 fin =open("code.txt","r",encoding="UTF-8")
 text=fin.readlines()
 while(text[0][0]=='#'):text=text[1:]
@@ -19,6 +19,7 @@ def remove_line_note(s:str):
 	return ''.join(s)
 
 text=remove_line_note(text[0])
+text=text.replace('name','name1')
 result=''
 
 def mysplite(s:str,sep:str,del_:str)->list:
@@ -83,7 +84,7 @@ def main():
 		fout.write("{} struct\n".format(k))
 		for a in v:
 			b=v[a]
-			fout.write("{} {}\n".format(b,'db 16 dup(0)' if b=='char *' else 'dw 0'))
+			fout.write("{} {}\n".format(a,'db 16 dup(0)' if b in ['char *','char*'] else 'dw 0'))
 		fout.write("{} ends\n".format(k))
 
 	fout.close()

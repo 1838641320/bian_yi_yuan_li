@@ -41,12 +41,12 @@ def main(result):
 				while(j>=0 and result[j][0]!='struct'):
 					j-=1
 				sid=result[j+1][1]
-				res=str(id)+' '+str(sid)+'<'
+				res=str(id)+' '+str(sid)+' < '
 				j=i+2
 				while(result[j][0]!='}'):
 					res+=result[j][1] if result[j][0]!=',' else ','
 					j+=1
-				res+='>\n'
+				res+=' >\n'
 			else:
 				id=result[j-1][1]
 				j=i
@@ -55,14 +55,14 @@ def main(result):
 				if(j>=0 and result[j][0]=='struct'):#结构体数组
 					sid=result[j+1][1]# 结构体ID
 					res=str(id)+' '
-					j=i+2
+					j=i+3
 					if(result[i-2][1].isdigit()):j+=1
 					while(1):
-						res+=str(sid)+'<'
+						res+=str(sid)+' < '
 						while(result[j][0]!='}'):
 							res+=result[j][1] if result[j][0]!=',' else ','
 							j+=1
-						res+='>\n'
+						res+=' >\n'
 						j+=1
 						if(result[j][0]=='}'):break
 						else:j+=2

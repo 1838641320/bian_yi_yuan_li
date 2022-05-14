@@ -13,16 +13,48 @@ def main():
 	code_seg=[]
 	offset_tb=dict() # for array
 	used_line_num=set()
+	array=[] # 没有被初始化过
+	structs=dict()
+	struct_type=set()
+	if(1):
+		f1=open("struct_save.txt","r")
+		lines=f1.readlines()
+		for line in lines:
+			if('struct' in line):
+				struct_type.add(line.split()[0])
+		f1.close()
+		f1=open("array_assign.txt","r")
+		for line in f1.readlines():
+			if('<' not in line):
+				v1=line.split()
+				array.append(v1[0])
+				data_seg[v1[0]]=' '.join(v1[1:])
+			elif('struct' in line):
+				v1=line.split(' ')
+				structs[v1[0]]=v1[1]
+
 	def get_loc(s:str):
-		if(s in data_seg): return 'word ptr [{}]'.format(s)
-		if(s in offset_tb): return 'word ptr [{}]'.format(offset_tb[s])
-		return s # constant
+		nonlocal code_seg
+		if(s in offset_tb): return '[{}]'.format(offset_tb[s])
+		sv=s.split('_')
+		if('tb_' in s and 'arr_' not in s):
+			return '[{}.{}]'.format(sv[1],sv[2])
+		if('arr_' in s and 'tb_' not in s):
+			code_seg+=['\tmov si,[{}]'.format(sv[2])]
+			code_seg+=['\timul si,type {}'.format(sv[1])]
+			return '[{}[si]]'.format(sv[1])
+		if('arr_' in s and 'tb_' in s):
+			code_seg+=['\tmov si,[{}]'.format(sv[3])]
+			code_seg+=['\timul si,type {}'.format(sv[2])]
+			return '[{}[si]].{}'.format(sv[2],sv[4])
+		if(s in data_seg): return '[{}]'.format(s)
+		return s # numeric constant
 	def get_v(s:str,regx:str='ax'):
 		nonlocal code_seg
 		s=str(s)
 		try:# numeric constant
 			rs=get_loc(s)
-			if(rs[0]!='w'):rs=int(float(rs))
+			if(rs[0]!='['):rs=int(float(rs))
 			code_seg+=['\tmov {},{}'.format(regx,rs)]
 		except:
 			print("\nwhat\n\nneed\ncheck\n")
@@ -32,13 +64,19 @@ def main():
 			used_line_num.add(line[3])
 		for _ in range(1,4):
 			tk=line[_]
-			if(isid(tk) and tk not in data_seg and tk not in offset_tb):
+			if(not isid(tk)):continue
+			if('tb_' in tk or 'arr_' in tk):continue
+			if(tk in data_seg and tk in array):
+				array.remove(tk)
+				data_seg[tk]+='\ndw {} dup(?)'.format(line[2])
+				continue
+			if(tk not in data_seg and tk not in offset_tb):
 				if(line[0]=='[]='):# 数组
 					if(line[2].isnumeric()):# 数组长度定义 / 下标
 						if(line[3]==tk):# 数组引用的临时变量
 							offset_tb[tk]="{}+2*{}".format(line[1],line[2])
 							continue 
-						data_seg[tk]="dw {} dup(0)".format(line[2])
+						data_seg[tk]="dw {} dup(?)".format(line[2])
 					else:
 						data_seg[tk]="db {},0".format(line[1])
 					continue
@@ -86,6 +124,11 @@ def main():
 
 	# 头尾工作
 	result=[".model small\ninclude io.inc\n.686P\n.stack 200h\n.data"]
+	f1=open("struct_save.txt","r")
+	for line in f1.readlines():result+=[line[:-1]]
+	f1.close()
+	f1=open("array_assign.txt","r")
+	for line in f1.readlines():result+=[line[:-1]]
 	for _ in data_seg:result+=["\t{} ".format(_)+data_seg[_]]
 	result+=['.code\n.startup']
 	for _ in code_seg:result+=[_]
