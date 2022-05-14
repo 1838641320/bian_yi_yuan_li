@@ -39,7 +39,6 @@ def find_op_or_key_words(s:str)->tuple:
 	if(len(mat)==0):return (0,0)
 	return (mat,ty)
 
-is_dim=0
 def find_number(s:str)->tuple:
 	integer=re.search(r"^[-+]?([1-9][0-9]*|0)",s)
 	floating=re.search(r"^[-+]?([1-9][0-9]*|0?)\.?[0-9]*",s)
@@ -59,10 +58,6 @@ id_table=[]
 def find_identifier(s:str)->tuple:
 	res=re.search(r"^[_a-zA-Z][_a-zA-Z0-9]*",s)
 	if(res==None):return (0,0)
-	id1=res.group(0)
-	if id1 not in id_table:
-		if((is_dim&1)==0):return (0,0)
-		id_table.append(id1)
 	return ("ID",s[0:res.span()[1]])
 
 def remove_line_note(s:str):
@@ -102,11 +97,6 @@ def main()->list:
 			print(tp)
 			result.append(tp if tp[0]!='int62' else ('int',tp[1]))
 			ptr+=len(tp[0])
-			if(tp[0] in ['int62','int','float','double','void','char']):is_dim=3
-			if(tp[0]=='int62'):is_dim|=4
-			if(tp[0]==';'):is_dim=0
-			if(tp[0]=='='):is_dim&=2
-			if(tp[0]==','):is_dim|=1
 			continue
 		tp=find_identifier(nexts)
 		if(tp[0]!=0):
@@ -120,6 +110,9 @@ def main()->list:
 			result.append(tp)
 			ptr+=len(tp[1]) if len(tp)==2 else tp[2]
 			continue
+
+	for i in range(len(result)):
+		if(result[i][0]==''):1
 
 	for i in result:
 		fout.write("{:18}{:}\n".format(i[0],i[1]))

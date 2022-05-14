@@ -1,0 +1,6 @@
+student struct
+char* db 16 dup(0)
+int dw 0
+int dw 0
+int dw 0
+student ends

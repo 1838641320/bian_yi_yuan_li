@@ -1,11 +1,24 @@
 
 import re
 
-type_info=['int','char','long','float','double','short','signed','unsigned']
+type_info=['int','char','char*','long','float','double','short','signed','unsigned']
 fin =open("code.txt","r",encoding="UTF-8")
 text=fin.readlines()
+while(text[0][0]=='#'):text=text[1:]
 for i in range(1,len(text)):text[0]+=text[i]
-text=str(text[0])
+
+def remove_line_note(s:str):
+	s=list(s)
+	sta=0
+	for i in range(len(s)):
+		if(s[i]=='/'):sta+=1
+		if(s[i]=='\n'):sta=0
+		if(sta>=2):
+			s[i]=' '
+			if(s[i-1]=='/'):s[i-1]=' '
+	return ''.join(s)
+
+text=remove_line_note(text[0])
 result=''
 
 def mysplite(s:str,sep:str,del_:str)->list:
@@ -20,13 +33,13 @@ def mysplite(s:str,sep:str,del_:str)->list:
 	res=[x for x in res if x]
 	return res
 
+struct_type={}
 def remove_struct():
 	global result,text
-	struct_type={}
 	i=0
 	while 1:
 		try:
-			i=text.index('struct ')
+			i=text.index('struct ',i)
 			s2=mysplite(text[i:i+500],' ,}{;\n\t',' \n\t')
 			name=s2[1]
 			field={}
@@ -55,17 +68,7 @@ def remove_struct():
 					ids.append(tk)
 
 			else:# 变量定义
-				sty=s2[1]
-				fd=struct_type[sty]
-				s2=s2[2:]
-				for tk in s2:
-					if(tk==';'):break
-					if(tk==','):continue
-					for v in fd:result+='{} {}_{};'.format(fd[v],tk,v)
-				s=i
 				while(text[i]!=';'):i+=1
-				text=text[0:s]+text[i+1:] # 删除结构体变量定义
-				i=0
 
 		except:break
 
@@ -80,6 +83,16 @@ def remove_struct():
 def main():
 
 	remove_struct()
+	fout=open("struct_save.txt","w",encoding="UTF-8")
+	for k in struct_type:
+		v=struct_type[k]
+		fout.write("{} struct\n".format(k))
+		for a in v:
+			b=v[a]
+			fout.write("{} {}\n".format(b,'db 16 dup(0)' if b=='char*' else 'dw 0'))
+		fout.write("{} ends\n".format(k))
+
+	fout.close()
 	fout=open("code2.txt","w",encoding="UTF-8")
 	fout.write(result)
 	fout.close()
