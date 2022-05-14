@@ -4,7 +4,7 @@ int main() {
     int sum = 0;
     struct student class[] = {{"Li ping", 5, 18, 145},
     {"Zhang ping", 4, 19, 131},{"He fang", 1, 18, 148}};
-    class[2].score=200;
+    class[2].score=1000;
     struct student aa;
     aa.age=234;
     for (i = 0; i < 3; i++) {

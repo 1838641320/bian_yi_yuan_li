@@ -12,6 +12,7 @@ student ends
 class student < "Li ping",5,18,145 >
 student < "Zhang ping",4,19,131 >
 student < "He fang",1,18,148 >
+aa student < > 
 	i dw 0
 	num_140 dw 0
 	sum dw 0
@@ -29,7 +30,7 @@ student < "He fang",1,18,148 >
 	mov [num_140],ax
 	mov ax,0
 	mov [sum],ax
-	mov ax,200
+	mov ax,1000
 	mov si,2
 	imul si,type class
 	mov [class[si]].score,ax

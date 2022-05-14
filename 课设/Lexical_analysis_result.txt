@@ -60,7 +60,7 @@ integer           2
 .                 operator
 ID                score
 =                 operator
-integer           200
+integer           1000
 ;                 operator
 struct            key_words
 ID                student

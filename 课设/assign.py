@@ -76,7 +76,14 @@ def main(res):
 			res=res[:i]+res[j+1:]
 			i-=1
 			f2.write(res_s)
-
+		if(res[i][0]=='struct' and res[i+3][0] ==','):
+			f2.write('{} {} < > \n'.format(res[i+2][1],res[i+1][1]))
+			res=res[:i+2]+res[i+4:]
+			i-=1
+		if(res[i][0]=='struct' and res[i+3][0] ==';'):
+			f2.write('{} {} < > \n'.format(res[i+2][1],res[i+1][1]))
+			res=res[:i]+res[i+4:]
+			i-=1
 
 	f2.flush()
 	f2.close()
