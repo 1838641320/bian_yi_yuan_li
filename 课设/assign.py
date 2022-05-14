@@ -1,12 +1,12 @@
 def main(result):
 	i=-1
-	while(1):# remove +=
+	while(1):
 		i+=1
 		if(i>=len(result)):break
 		if(result[i][0] in ['+','-','*','/'] and result[i+1][0]=='='):
 			result=result[:i]+[result[i+1],result[i-1],(result[i][0],"operator")]+result[i+2:]
 	i=-1
-	while(1):# remove ++
+	while(1):
 		i+=1
 		if(i>=len(result)):break
 		if(result[i][0]=='++' or result[i][0]=='--'):

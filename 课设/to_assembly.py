@@ -8,7 +8,6 @@ def isid(s):
 
 def main():
 	yvyi=hhyu2.main()
-	print(yvyi)
 	data_seg=dict()
 	code_seg=[]
 	offset_tb=dict() # for array

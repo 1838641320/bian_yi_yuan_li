@@ -41,7 +41,6 @@ def fun_0(name: str, no: int, long: int):  # 包括了赋值语句,赋值语句�
         value = analyze.pop()  # [类型，0，(值，Ti)] ; [类型,0,值]
     else:
         value = []
-    print(value, table[name])
     analyze = analyze_1.copy()
     if len(value) == 0:
         if no:
@@ -70,7 +69,6 @@ def fun_0(name: str, no: int, long: int):  # 包括了赋值语句,赋值语句�
                 four.append(['[]=', name, i, value[2][i]])
     else:
         print('错误提示:赋值号两边类型不匹配!')
-        print(value, table[name], name)
 
 
 # 产生式 program ::= eps
@@ -170,7 +168,6 @@ def fun_10():
     analyze.append((name, no, long))
     deal(1)  # 赋值语句1 返回数据与函数的判断结果，值用analyze返回
     if len(analyze): analyze.pop()  # 弹出本次定义变量的类型
-    print(analyze)
 
 
 # 产生式 数组标识 ::= eps
@@ -187,7 +184,6 @@ def fun_12():
     deal(2)  # [
     l = deal(1)  # 常量表达式
     long = l[-1]
-    print(long)
     analyze.pop()
     deal(2)  # ]
     return list([0, long])
@@ -432,7 +428,6 @@ def fun_35():
     # deal(1)  # 赋值语句
     deal(1)  # 局部变量2
     analyze.pop()
-    print(analyze)
 
 
 # 产生式 局部变量2 ::= , ID 数组标识 赋值语句 局部变量2
@@ -541,6 +536,23 @@ def fun_42():
     result1.pop(0)
     deal(1)  # 求值式
 
+def print_table(res):
+	for k in res:
+		for x in k:
+			if(not isinstance(x,str)):
+				print(x,end='\t')
+				continue
+			xv=x.split('_')
+			if('tb_' in x and 'arr_' in x):
+				x='{}[{}].{}'.format(xv[2],xv[3],xv[4])
+			if('tb_' in x and 'arr_' not in x):
+				x='{}.{}'.format(xv[1],xv[2])
+			if('tb_' not  in x and 'arr_' in x):
+				x='{}[{}]'.format(xv[1],xv[2])
+			print(x,end='\t')
+		print()
+	pass
+
 
 # 数组赋值 ::= { 常量表达式  赋值数列 }
 def fun_43():
@@ -549,10 +561,8 @@ def fun_43():
     deal(2)  # {
     name = word
     ty = table[name][0]
-    long = table[name][1]
 
     value = list()
-    print(name, ty, long)
     value.append(table[name][0])
 
     value.append('1')
@@ -728,11 +738,9 @@ def fun_50():
     global result1, result2, analyze, comp, four, label, word
     result1.pop(0)
     num1 = deal(2)  # ID
-    print("num1:", num1)
     word = num1
     t = label
     [no, long] = deal(1)  # 数组标识
-    print(no, long)
     try:
         if not no:  # 是数组
             l = table[num1][2][0]  # (long,value)
@@ -862,7 +870,6 @@ def fun_62():
     deal(2)  # =
     deal(1)  # 求值式
     value = analyze.pop()
-    print(value)
     analyze.append([value[-1], value[0], '='])
 
 
@@ -894,7 +901,6 @@ def fun_64():
     analyze.append(len(four) - 1)
     deal(2)  # )
     deal(1)  # if语句2
-    print(analyze)
     index = len(four) + 1
     for i in analyze:
         four[i][3] = index
@@ -1180,7 +1186,7 @@ def fun_85():
     deal(1)  # ID
     analyze_1 = analyze.copy()
     analyze.clear()
-    analyze.push(stru)  # 结构体名入栈，方便赋值的时候获取
+    analyze.add(stru)  # 结构体名入栈，方便赋值的时候获取
     deal(2)
     analyze = analyze_1.copy()
 
@@ -1218,12 +1224,7 @@ def main():
     result1, result2 = parser_.main()
     print()
     deal(1)
-    count = 1
-    for f in four:
-        print(str(count) + ':', end='\t')
-        print(f)
-        count += 1
-    print(table)
+    print_table(four)
     return four
 
 
