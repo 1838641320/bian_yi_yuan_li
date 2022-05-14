@@ -24,8 +24,8 @@ def main():
 			rs=get_loc(s)
 			if(rs[0]!='w'):rs=int(float(rs))
 			code_seg+=['\tmov {},{}'.format(regx,rs)]
-		except: # string assignment
-			pass
+		except:
+			print("\nwhat\n\nneed\ncheck\n")
 		
 	for line in yvyi:# 变量定义
 		if(line[0][0]=='j'):

@@ -159,8 +159,8 @@ def analysis(file)->bool:
 		if isTerminal(X):
 			if tk==X:
 				if X=='#':return (1,parser_list,lex_result_)
+				print("pop 终结符"+str(X)+'\t'+str(stack2[index]))
 				index+=1
-				print("pop 终结符"+str(X))
 				continue
 			else:break
 		else:

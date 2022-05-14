@@ -1,5 +1,5 @@
 student struct
-char* db 16 dup(0)
+char * db 16 dup(0)
 int dw 0
 int dw 0
 int dw 0

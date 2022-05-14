@@ -1,7 +1,7 @@
 
 import re
 
-type_info=['int','char','char*','long','float','double','short','signed','unsigned']
+type_info=['int','char','*','long','float','double','short','signed','unsigned']
 fin =open("code.txt","r",encoding="UTF-8")
 text=fin.readlines()
 while(text[0][0]=='#'):text=text[1:]
@@ -72,12 +72,6 @@ def remove_struct():
 
 		except:break
 
-	i=0
-	while(1):
-		if(i>=len(text)):break
-		if(text[i]=='.' and (not text[i+1].isdigit())):
-			text=text[0:i]+'_'+text[i+1:]
-		i+=1
 	result=result+text
 
 def main():
@@ -89,7 +83,7 @@ def main():
 		fout.write("{} struct\n".format(k))
 		for a in v:
 			b=v[a]
-			fout.write("{} {}\n".format(b,'db 16 dup(0)' if b=='char*' else 'dw 0'))
+			fout.write("{} {}\n".format(b,'db 16 dup(0)' if b=='char *' else 'dw 0'))
 		fout.write("{} ends\n".format(k))
 
 	fout.close()

@@ -79,3 +79,6 @@ int62
 repeat
 scanf
 printf
+struct_assign
+struct_array_assign
+struct_value
