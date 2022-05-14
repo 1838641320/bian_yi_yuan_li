@@ -71,7 +71,7 @@ def remove_struct():
 			else:# 变量定义
 				while(text[i]!=';'):i+=1
 
-		except:break
+		except ValueError:break
 
 	result=result+text
 

@@ -536,22 +536,36 @@ def fun_42():
     result1.pop(0)
     deal(1)  # 求值式
 
-def print_table(res):
-	for k in res:
-		for x in k:
-			if(not isinstance(x,str)):
-				print(x,end='\t')
-				continue
-			xv=x.split('_')
-			if('tb_' in x and 'arr_' in x):
-				x='{}[{}].{}'.format(xv[2],xv[3],xv[4])
-			if('tb_' in x and 'arr_' not in x):
-				x='{}.{}'.format(xv[1],xv[2])
-			if('tb_' not  in x and 'arr_' in x):
-				x='{}[{}]'.format(xv[1],xv[2])
-			print(x,end='\t')
-		print()
-	pass
+def print_table(res_:list[list]):
+	res=res_.copy()
+	for i in range(len(res_)):res[i]=res_[i].copy()
+	for i in range(1<<30):
+		if(i>=len(res)):break
+		cnt=0
+		for j in range(4):
+			x=res[i][j]
+			if(not isinstance(x,str)):continue
+			if('tb_' in x or 'arr_' in x):
+				xv=x.split('_')
+				if('tb_' in x and 'arr_' in x):
+					res.insert(i,['get_offst1',str(xv[2]),str(xv[3]),'T150{}'.format(j)])
+					i+=1
+					res.insert(i,['get_offst2','T150{}'.format(j),str(xv[4]),'T100{}'.format(j)])
+					i+=1
+					cnt+=2
+				if('tb_' in x and 'arr_' not in x):
+					res.insert(i,['get_offst1',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
+					i+=1
+					cnt+=1
+				if('tb_' not in x and 'arr_' in x):
+					res.insert(i,['get_offst2',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
+					i+=1
+					cnt+=1
+				res[i][j]='T100{}'.format(j)
+		for k in range(i,len(res)):
+			if(res[k][0][0]=='j'):res[k][3]+=cnt
+	for l in res:print(l)
+	
 
 
 # 数组赋值 ::= { 常量表达式  赋值数列 }

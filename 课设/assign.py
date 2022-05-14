@@ -1,28 +1,25 @@
-def main(result):
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0] in ['+','-','*','/'] and result[i+1][0]=='='):
-			result=result[:i]+[result[i+1],result[i-1],(result[i][0],"operator")]+result[i+2:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='++' or result[i][0]=='--'):
-			result=result[:i]+[('=',"operator"),result[i-1],(result[i][0][0],"operator"),('integer',"1")]+result[i+1:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='[' and result[i+2][0]==']' and not result[i+1][1].isdigit()):
-			result=result[:i-1]+[("ID",'arr_'+result[i-1][1]+'_'+str(result[i+1][1]))]+result[i+3:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='.' and result[i+1][0]=='ID'):
-			result=result[:i-1]+[("ID",'tb_'+result[i-1][1]+'_'+str(result[i+1][1]))]+result[i+2:]
+
+
+def main(res):
+	for i in range(1<<30):
+		if(i>=len(res)):break
+		if(res[i][0] in ['+','-','*','/'] and res[i+1][0]=='='):
+			if(res[i-1][0]!=']'):
+				res=res[:i]+[res[i+1],res[i-1],(res[i][0],"operator")]+res[i+2:]
+			else:
+				res=res[:i]+[res[i+1]]+res[i-4:i]+[(res[i][0],"operator")]+res[i+2:]
+	for i in range(1<<30):
+		if(i>=len(res)):break
+		if(res[i][0]=='++' or res[i][0]=='--'):
+			res=res[:i]+[('=',"operator"),res[i-1],(res[i][0][0],"operator"),('integer',"1")]+res[i+1:]
+	for i in range(1<<30):
+		if(i>=len(res)):break
+		if(res[i][0]=='[' and res[i+2][0]==']' and not res[i+1][1].isdigit()):
+			res=res[:i-1]+[("ID",'arr_'+res[i-1][1]+'_'+str(res[i+1][1]))]+res[i+3:]
+	for i in range(1<<30):
+		if(i>=len(res)):break
+		if(res[i][0]=='.' and res[i+1][0]=='ID'):
+			res=res[:i-1]+[("ID",'tb_'+res[i-1][1]+'_'+str(res[i+1][1]))]+res[i+2:]
 	# 以下向前搜索数组赋值、数组
 
 	f2=open("array_assign.txt","w",encoding="UTF-8")
@@ -30,55 +27,55 @@ def main(result):
 	i=-1
 	while(1):
 		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='=' and result[i+1][0]=='{'):
+		if(i>=len(res)):break
+		if(res[i][0]=='=' and res[i+1][0]=='{'):
 			j=i
-			res=''
-			while(j>=0 and result[j][0]!='['):j-=1
+			res_s=''
+			while(j>=0 and res[j][0]!='['):j-=1
 			if(j<0): # 结构体
-				id=result[i-1][1]
+				id=res[i-1][1]
 				j=i
-				while(j>=0 and result[j][0]!='struct'):
+				while(j>=0 and res[j][0]!='struct'):
 					j-=1
-				sid=result[j+1][1]
-				res=str(id)+' '+str(sid)+' < '
+				sid=res[j+1][1]
+				res_s=str(id)+' '+str(sid)+' < '
 				j=i+2
-				while(result[j][0]!='}'):
-					res+=result[j][1] if result[j][0]!=',' else ','
+				while(res[j][0]!='}'):
+					res_s+=res[j][1] if res[j][0]!=',' else ','
 					j+=1
-				res+=' >\n'
+				res_s+=' >\n'
 			else:
-				id=result[j-1][1]
+				id=res[j-1][1]
 				j=i
-				while(j>=0 and result[j][0]!='struct' and result[j][0]!=';'):
+				while(j>=0 and res[j][0]!='struct' and res[j][0]!=';'):
 					j-=1
-				if(j>=0 and result[j][0]=='struct'):#结构体数组
-					sid=result[j+1][1]# 结构体ID
-					res=str(id)+' '
+				if(j>=0 and res[j][0]=='struct'):#结构体数组
+					sid=res[j+1][1]# 结构体ID
+					res_s=str(id)+' '
 					j=i+3
-					if(result[i-2][1].isdigit()):j+=1
+					if(res[i-2][1].isdigit()):j+=1
 					while(1):
-						res+=str(sid)+' < '
-						while(result[j][0]!='}'):
-							res+=result[j][1] if result[j][0]!=',' else ','
+						res_s+=str(sid)+' < '
+						while(res[j][0]!='}'):
+							res_s+=res[j][1] if res[j][0]!=',' else ','
 							j+=1
-						res+=' >\n'
+						res_s+=' >\n'
 						j+=1
-						if(result[j][0]=='}'):break
+						if(res[j][0]=='}'):break
 						else:j+=2
 						
 				else:#普通数组
-					res=str(id)+' dw '
+					res_s=str(id)+' dw '
 					j=i+2
-					while(result[j][0]!='}'):
-						res+=result[j][1] if result[j][0]!=',' else ','
+					while(res[j][0]!='}'):
+						res_s+=res[j][1] if res[j][0]!=',' else ','
 						j+=1
-					res+='\n'
+					res_s+='\n'
 
-			assert(result[j][0]=='}')
-			result=result[:i]+result[j+1:]
+			assert(res[j][0]=='}')
+			res=res[:i]+res[j+1:]
 			i-=1
-			f2.write(res)
+			f2.write(res_s)
 
 
 	f2.flush()
@@ -88,11 +85,11 @@ def main(result):
 	i=-1
 	while(1):
 		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='struct'):
+		if(i>=len(res)):break
+		if(res[i][0]=='struct'):
 			j=i
-			while(result[j][0]!=';'):j+=1
-			result=result[:i]+result[j+1:]
+			while(res[j][0]!=';'):j+=1
+			res=res[:i]+res[j+1:]
 			i-=1
-	return result
+	return res
 if __name__=='__main__':main()

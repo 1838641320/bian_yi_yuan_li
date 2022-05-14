@@ -12,8 +12,8 @@ int main() {
                               {"Zhang ping", 4, 19, 131},
                               {"He fang", 1, 18, 148}};
     for (i = 0; i < 3; i++) {
-        sum += class[i].num;
-        if (class[i].num < 140)
+        sum += class[i].score;
+        if (class[i].score < 140)
             num_140++;
     }
     printf("%d\n%d\n", sum, num_140);

@@ -12,7 +12,7 @@ def main():
 	code_seg=[]
 	offset_tb=dict() # for array
 	used_line_num=set()
-	array=[] # 没有被初始化过
+	array=dict() # 没有被初始化过
 	structs=dict()
 	struct_type=set()
 	if(1):
@@ -26,8 +26,7 @@ def main():
 		for line in f1.readlines():
 			if('<' not in line):
 				v1=line.split()
-				array.append(v1[0])
-				data_seg[v1[0]]=' '.join(v1[1:])
+				array[v1[0]]=' '.join(v1[1:])
 			elif('struct' in line):
 				v1=line.split(' ')
 				structs[v1[0]]=v1[1]
@@ -65,9 +64,9 @@ def main():
 			tk=line[_]
 			if(not isid(tk)):continue
 			if('tb_' in tk or 'arr_' in tk):continue
-			if(tk in data_seg and tk in array):
-				array.remove(tk)
-				data_seg[tk]+='\ndw {} dup(?)'.format(line[2])
+			if(tk in array):
+				if(tk not in data_seg):
+					data_seg[tk]='{}\n\tdw {} dup(?)'.format(array[tk],line[2])
 				continue
 			if(tk not in data_seg and tk not in offset_tb):
 				if(line[0]=='[]='):# 数组
@@ -77,7 +76,7 @@ def main():
 							continue 
 						data_seg[tk]="dw {} dup(?)".format(line[2])
 					else:
-						data_seg[tk]="db {},0".format(line[1])
+						data_seg[tk]="db {},0".format(line[1])# string
 					continue
 				data_seg[tk]="dw 0"
 	line_num=0
@@ -127,7 +126,9 @@ def main():
 	for line in f1.readlines():result+=[line[:-1]]
 	f1.close()
 	f1=open("array_assign.txt","r")
-	for line in f1.readlines():result+=[line[:-1]]
+	for line in f1.readlines():
+		if(line.split()[0] in array):continue
+		result+=[line[:-1]]
 	for _ in data_seg:result+=["\t{} ".format(_)+data_seg[_]]
 	result+=['.code\n.startup']
 	for _ in code_seg:result+=[_]

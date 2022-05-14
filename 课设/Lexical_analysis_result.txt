@@ -36,11 +36,11 @@ ID                sum
 =                 operator
 ID                sum
 +                 operator
-ID                tb_arr_class_i_num
+ID                tb_arr_class_i_score
 ;                 operator
 if                key_words
 (                 operator
-ID                tb_arr_class_i_num
+ID                tb_arr_class_i_score
 <                 operator
 integer           140
 )                 operator

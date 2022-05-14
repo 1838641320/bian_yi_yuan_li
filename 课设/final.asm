@@ -45,14 +45,14 @@ line10:
 	mov ax,[sum]
 	mov si,[i]
 	imul si,type class
-	mov bx,[class[si]].num
+	mov bx,[class[si]].score
 	add ax,bx
 	mov [T3],ax
 	mov ax,[T3]
 	mov [sum],ax
 	mov si,[i]
 	imul si,type class
-	mov ax,[class[si]].num
+	mov ax,[class[si]].score
 	cmp ax,140
 	jl line14
 	jmp line16
