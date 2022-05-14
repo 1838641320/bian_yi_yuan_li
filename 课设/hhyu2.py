@@ -757,7 +757,7 @@ def fun_50():
 	[no, long] = deal(1)  # 数组标识
 	try:
 		if not no:  # 是数组
-			l = table[num1][2][0]  # (long,value)
+			l = table[num1][2]  # (long,value)
 			if int(long) < int(l):
 				four.append(['[]=', num1, long, 'T' + str(t)])
 				op = fun(num1, no)

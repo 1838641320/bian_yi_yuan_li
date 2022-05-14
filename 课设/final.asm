@@ -18,6 +18,9 @@ student < "He fang",1,18,148 >
 	T2 dw 0
 	T3 dw 0
 	T5 dw 0
+	vv dw 12 dup(?)
+	T8 dw 0
+	T11 dw 0
 .code
 .startup
 	mov ax,0
@@ -30,22 +33,24 @@ student < "He fang",1,18,148 >
 	mov si,2
 	imul si,type class
 	mov [class[si]].score,ax
+	mov ax,234
+	mov [aa.age],ax
 	mov ax,0
 	mov [i],ax
-line6:
+line7:
 	mov ax,[i]
 	cmp ax,3
-	jl line11
-	jmp line18
-line8:
+	jl line12
+	jmp line19
+line9:
 	mov ax,[i]
 	mov bx,1
 	add ax,bx
 	mov [T2],ax
 	mov ax,[T2]
 	mov [i],ax
-	jmp line6
-line11:
+	jmp line7
+line12:
 	mov ax,[sum]
 	mov si,[i]
 	imul si,type class
@@ -58,22 +63,58 @@ line11:
 	imul si,type class
 	mov ax,[class[si]].score
 	cmp ax,140
-	jl line15
-	jmp line17
-line15:
+	jl line16
+	jmp line18
+line16:
 	mov ax,[num_140]
 	mov bx,1
 	add ax,bx
 	mov [T5],ax
 	mov ax,[T5]
 	mov [num_140],ax
-line17:
-	jmp line8
 line18:
+	jmp line9
+line19:
 	mov ax,[sum]
 	call dispsiw
 	call dispcrlf
 	mov ax,[num_140]
+	call dispsiw
+	call dispcrlf
+	mov ax,[aa.age]
+	call dispsiw
+	call dispcrlf
+	mov ax,7
+	mov [vv+2*3],ax
+	mov ax,0
+	mov [i],ax
+line26:
+	mov ax,[i]
+	cmp ax,7
+	jl line31
+	jmp line36
+line28:
+	mov ax,[i]
+	mov bx,1
+	add ax,bx
+	mov [T8],ax
+	mov ax,[T8]
+	mov [i],ax
+	jmp line26
+line31:
+	mov ax,[vv+2*0]
+	mov si,[i]
+	imul si,type vv
+	mov bx,[vv[si]]
+	add ax,bx
+	mov [T11],ax
+	mov ax,[T11]
+	mov [vv+2*0],ax
+	jmp line28
+line36:
+	mov ax,[vv+2*0]
+	mov [i],ax
+	mov ax,[i]
 	call dispsiw
 	call dispcrlf
 .exit
