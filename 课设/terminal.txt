@@ -82,3 +82,4 @@ printf
 struct_assign
 struct_array_assign
 struct_value
+array

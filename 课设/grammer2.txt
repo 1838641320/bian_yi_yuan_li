@@ -86,3 +86,7 @@ local ::= printf ( string , ID 输出参数 ) ; local
 结构体赋值 ::= eps
 结构体赋值 ::= { 赋值列表 }
 赋值列表 ::= 赋值语句
+local ::= 数组赋值语句 local
+数组赋值语句 ::= array ID = { 数组变量1 数组变量2 } ;
+local ::= 结构体赋值语句 local
+local ::= 结构体数组赋值语句 local

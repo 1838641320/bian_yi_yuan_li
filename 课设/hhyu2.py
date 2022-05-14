@@ -609,65 +609,64 @@ def fun_47():
 
 
 # 带符号右值
-def fun(num1: str, no: int):
-    global four, label
-    t = label
-    if not no:
-        label += 1
+def fun(num1: str, no: int):# no 标志表示数组
+	global four, label
+	t = label
+	if not no:
+		label += 1
 
-    deal(1)  # 带符号右值
-    info = analyze.pop()
-    try:
-        if not no:
-            if info[1] == 'default':
-                analyze.append([info[1], 0, 'T' + str(t)])
-            elif info[2] == '=':
-                pass
-            # four.append(['=', info[0], '-', 'T' + str(t)])
-            else:  # 数组和常量相加
-                analyze.append([info[1], 0, 'T' + str(label)])
-                pass
-            # four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
-            return
-        # ID = t
-        if info[2] == '=':
-            four.append(['=', info[0], '-', num1])
-        # x = ID 带符号右值
-        elif info[1] == 'default':
-            temp = table[num1][:2]
-            temp.append(num1)
-            analyze.append(temp)
-        elif table[num1][1] != 0:
-            print('错误提示:变量不是数值类型!')
-        elif info[1] == table[num1][0]:  # 数值类型相同
-            if info[2] == '++' or info[2] == '--':
-                temp = table[num1][:2]
-                temp.append(num1)
-                analyze.append(temp)  # a = i++;
-                four.append([info[2][0], num1, info[0], 'T' + str(label)])
-                four.append(['=', 'T' + str(label), '-', num1])
-                label += 1
-            else:
-                four.append([info[2], num1, info[0], 'T' + str(label)])
-                label += 1
-                # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-                analyze.append([info[1], 0, 'T' + str(t)])
-        elif comp[table[num1][0]] < comp[info[1]]:
-            four.append([info[2], num1, info[0], 'T' + str(label)])
-            label += 1
-            # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-            analyze.append([info[1], 0, 'T' + str(t)])
-        elif comp[table[num1][0]] > comp[info[1]]:
-            four.append([info[2], num1, info[0], 'T' + str(label)])
-            label += 1
-            # value = eval(str(table[num1][2]) + info[2] + str(info[0]))
-            analyze.append([table[num1][0], 0, 'T' + str(t)])
-        else:
-            print('错误提示:请先进行强制转换!')
-    except KeyError:
-        print('错误提示:变量未定义!')
-    finally:
-        return info
+	deal(1)  # 带符号右值
+	info = analyze.pop()
+	try:
+		if not no:
+			if info[1] == 'default':
+				analyze.append([info[1], 0, 'T' + str(t)])
+			elif info[2] == '=':
+				pass
+				# four.append(['=', info[0], '-', 'T' + str(t)])
+			else:# 数组和常量相加
+				analyze.append([info[1], 0, 'T' + str(label)])
+				pass
+				# four.append([info[2], 'T' + str(t), info[0], 'T' + str(t + 1)])
+			return
+		# ID = t
+		if info[2] == '=':
+			four.append(['=', info[0], '-', num1])
+		# x = ID 带符号右值
+		elif info[1] == 'default':
+			temp = table[num1][:2] if num1 in table else ['int',0]
+			temp.append(num1)
+			analyze.append(temp)
+		elif num1 in table and table[num1][1] != 0:
+			print('错误提示:变量不是数值类型!')
+		elif num1 not in table or info[1] == table[num1][0]:  # 数值类型相同
+			if info[2] == '++' or info[2] == '--':
+				temp = table[num1][:2] if num1 in table else ['int',0]
+				temp.append(num1)
+				analyze.append(temp)  # a = i++;
+				four.append([info[2][0], num1, info[0], 'T' + str(label)])
+				four.append(['=', 'T' + str(label), '-', num1])
+				label += 1
+			else:
+				four.append([info[2], num1, info[0], 'T' + str(label)])
+				label += 1
+				analyze.append([info[1], 0, 'T' + str(t)])
+		# should be dead code
+		elif comp[table[num1][0]] < comp[info[1]]:
+			four.append([info[2], num1, info[0], 'T' + str(label)])
+			label += 1
+			analyze.append([info[1], 0, 'T' + str(t)])
+		elif comp[table[num1][0]] > comp[info[1]]:
+			four.append([info[2], num1, info[0], 'T' + str(label)])
+			label += 1
+			analyze.append([table[num1][0], 0, 'T' + str(t)])
+		else:
+			print('错误提示:请先进行强制转换!')
+	except KeyError:
+		print('错误提示:变量未定义!')
+		exit(1)
+	finally:
+		return info
 
 
 # 产生式 求值式 ::= integer 带符号右值

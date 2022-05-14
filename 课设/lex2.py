@@ -1,6 +1,6 @@
 import sys
 import re
-import pre_deal
+import pre_deal,assign
 
 MAXL=80
 result=[]
@@ -111,36 +111,7 @@ def main()->list:
 			ptr+=len(tp[1]) if len(tp)==2 else tp[2]
 			continue
 
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='+' and result[i+1][0]=='='):
-			result=result[:i]+[result[i+1],result[i-1],('+',"operator")]+result[i+2:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='++'):
-			result=result[:i]+[('=',"operator"),result[i-1],('+',"operator"),('integer',"1")]+result[i+1:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='--'):
-			result=result[:i]+[('=',"operator"),result[i-1],('+',"operator"),('integer',"1")]+result[i+1:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='[' and result[i+2][0]==']'):
-			result=result[:i-1]+[("ID",'arr_'+result[i-1][1]+'_'+str(result[i+1][1]))]+result[i+3:]
-	i=-1
-	while(1):
-		i+=1
-		if(i>=len(result)):break
-		if(result[i][0]=='.' and result[i+1][0]=='ID'):
-			result=result[:i-1]+[("ID",'tb_'+result[i-1][1]+'_'+str(result[i+1][1]))]+result[i+2:]
+	result=assign.main(result)
 
 	for i in result:
 		fout.write("{:18}{:}\n".format(i[0],i[1]))

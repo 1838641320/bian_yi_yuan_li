@@ -1,0 +1,12 @@
+int               key_words
+ID                main
+(                 operator
+)                 operator
+{                 operator
+int               key_words
+ID                q
+[                 operator
+integer           8
+]                 operator
+;                 operator
+}                 operator
