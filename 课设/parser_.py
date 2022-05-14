@@ -1,5 +1,5 @@
 import sys
-import lex2
+import lex2,assign
 
 grammer=list()
 first=dict()
@@ -149,6 +149,7 @@ def getLL_1Table():
 def analysis(file)->bool:
 	parser_list=[]
 	stack2=lex2.main()
+	stack2=assign.main(stack2)
 	lex_result_=stack2
 	stack1=["#","program"]
 	stack2.append(('#',))

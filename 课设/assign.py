@@ -14,7 +14,7 @@ def main(res):
 			res=res[:i]+[('=',"operator"),res[i-1],(res[i][0][0],"operator"),('integer',"1")]+res[i+1:]
 	for i in range(1<<30):
 		if(i>=len(res)):break
-		if(res[i][0]=='[' and res[i+2][0]==']' and not res[i+1][1].isdigit()):
+		if(res[i][0]=='[' and res[i+2][0]==']' and (not res[i+1][1].isdigit() or res[i+3][0]=='.')):
 			res=res[:i-1]+[("ID",'arr_'+res[i-1][1]+'_'+str(res[i+1][1]))]+res[i+3:]
 	for i in range(1<<30):
 		if(i>=len(res)):break

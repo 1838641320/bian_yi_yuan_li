@@ -9,8 +9,8 @@ int main() {
     int i, num_140 = 0;
     int sum = 0;
     struct student class[] = {{"Li ping", 5, 18, 145},
-                              {"Zhang ping", 4, 19, 131},
-                              {"He fang", 1, 18, 148}};
+    {"Zhang ping", 4, 19, 131},{"He fang", 1, 18, 148}};
+    class[2].score=200;
     for (i = 0; i < 3; i++) {
         sum += class[i].score;
         if (class[i].score < 140)

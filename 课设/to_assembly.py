@@ -38,11 +38,11 @@ def main():
 		if('tb_' in s and 'arr_' not in s):
 			return '[{}.{}]'.format(sv[1],sv[2])
 		if('arr_' in s and 'tb_' not in s):
-			code_seg+=['\tmov si,[{}]'.format(sv[2])]
+			code_seg+=['\tmov si,{}'.format(get_loc(sv[2]))]
 			code_seg+=['\timul si,type {}'.format(sv[1])]
 			return '[{}[si]]'.format(sv[1])
 		if('arr_' in s and 'tb_' in s):
-			code_seg+=['\tmov si,[{}]'.format(sv[3])]
+			code_seg+=['\tmov si,{}'.format(get_loc(sv[3]))]
 			code_seg+=['\timul si,type {}'.format(sv[2])]
 			return '[{}[si]].{}'.format(sv[2],sv[4])
 		if(s in data_seg): return '[{}]'.format(s)

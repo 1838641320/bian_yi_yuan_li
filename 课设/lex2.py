@@ -1,6 +1,6 @@
 import sys
 import re
-import pre_deal,assign
+import pre_deal
 
 MAXL=80
 result=[]
@@ -111,7 +111,6 @@ def main()->list:
 			ptr+=len(tp[1]) if len(tp)==2 else tp[2]
 			continue
 
-	result=assign.main(result)
 
 	for i in result:
 		fout.write("{:18}{:}\n".format(i[0],i[1]))

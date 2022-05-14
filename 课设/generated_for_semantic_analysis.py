@@ -8,17 +8,11 @@ def fun_1():
 	global result1, result2
 	result1.pop(0)
 
-# 产生式 program ::= struct ID { func_and_var } ; program
+# 产生式 program ::= 废弃使用
 def fun_2():
 	global result1, result2
 	result1.pop(0)
-	deal(2)		# struct
-	deal(2)		# ID
-	deal(2)		# {
-	deal(1)		# func_and_var
-	deal(2)		# }
-	deal(2)		# ;
-	deal(1)		# program
+	deal(1)		# 废弃使用
 
 # 产生式 program ::= 全局变量 program
 def fun_3():
@@ -239,21 +233,23 @@ def fun_34():
 	deal(1)		# repeat语句
 	deal(1)		# local
 
-# 产生式 局部变量 ::= type ID 赋值语句 局部变量2
+# 产生式 局部变量 ::= type ID 数组标识 赋值语句 局部变量2
 def fun_35():
 	global result1, result2
 	result1.pop(0)
 	deal(1)		# type
 	deal(2)		# ID
+	deal(1)		# 数组标识
 	deal(1)		# 赋值语句
 	deal(1)		# 局部变量2
 
-# 产生式 局部变量2 ::= , ID 赋值语句 局部变量2
+# 产生式 局部变量2 ::= , ID 数组标识 赋值语句 局部变量2
 def fun_36():
 	global result1, result2
 	result1.pop(0)
 	deal(2)		# ,
 	deal(2)		# ID
+	deal(1)		# 数组标识
 	deal(1)		# 赋值语句
 	deal(1)		# 局部变量2
 
@@ -632,4 +628,105 @@ def fun_84():
 	deal(2)		# ,
 	deal(2)		# ID
 	deal(1)		# 输出参数
+
+# 产生式 program ::= 结构体定义 program
+def fun_85():
+	global result1, result2
+	result1.pop(0)
+	deal(1)		# 结构体定义
+	deal(1)		# program
+
+# 产生式 结构体定义 ::= struct ID { 局部变量 局部变量2 } ;
+def fun_86():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# struct
+	deal(2)		# ID
+	deal(2)		# {
+	deal(1)		# 局部变量
+	deal(1)		# 局部变量2
+	deal(2)		# }
+	deal(2)		# ;
+
+# 产生式 local ::= 结构体变量定义 local
+def fun_87():
+	global result1, result2
+	result1.pop(0)
+	deal(1)		# 结构体变量定义
+	deal(1)		# local
+
+# 产生式 结构体变量定义 ::= struct ID ID 结构体初始化 结构体变量定义2
+def fun_88():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# struct
+	deal(2)		# ID
+	deal(2)		# ID
+	deal(1)		# 结构体初始化
+	deal(1)		# 结构体变量定义2
+
+# 产生式 结构体初始化 ::= eps
+def fun_89():
+	global result1, result2
+	result1.pop(0)
+
+# 产生式 结构体初始化 ::= { 求值式 结构体内部表达式 }
+def fun_90():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# {
+	deal(1)		# 求值式
+	deal(1)		# 结构体内部表达式
+	deal(2)		# }
+
+# 产生式 结构体初始化 ::= = { 求值式 结构体内部表达式 }
+def fun_91():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# =
+	deal(2)		# {
+	deal(1)		# 求值式
+	deal(1)		# 结构体内部表达式
+	deal(2)		# }
+
+# 产生式 结构体内部表达式 ::= eps
+def fun_92():
+	global result1, result2
+	result1.pop(0)
+
+# 产生式 结构体内部表达式 ::= , 求值式 结构体内部表达式
+def fun_93():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# ,
+	deal(1)		# 求值式
+	deal(1)		# 结构体内部表达式
+
+# 产生式 结构体变量定义2 ::= ;
+def fun_94():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# ;
+
+# 产生式 结构体变量定义2 ::= , ID 结构体初始化 结构体变量定义2
+def fun_95():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# ,
+	deal(2)		# ID
+	deal(1)		# 结构体初始化
+	deal(1)		# 结构体变量定义2
+
+# 产生式 带符号右值 ::= . 求值式
+def fun_96():
+	global result1, result2
+	result1.pop(0)
+	deal(2)		# .
+	deal(1)		# 求值式
+
+# 产生式 常量表达式 ::= 结构体初始化
+def fun_97():
+	global result1, result2
+	result1.pop(0)
+	deal(1)		# 结构体初始化
 
