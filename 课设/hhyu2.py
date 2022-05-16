@@ -539,7 +539,9 @@ def fun_42():
 def print_table(res_:list[list]):
 	res=res_.copy()
 	for i in range(len(res_)):res[i]=res_[i].copy()
-	for i in range(1<<30):
+	i=-1
+	while(1):
+		i+=1
 		if(i>=len(res)):break
 		cnt=0
 		for j in range(4):
@@ -548,17 +550,17 @@ def print_table(res_:list[list]):
 			if('tb_' in x or 'arr_' in x):
 				xv=x.split('_')
 				if('tb_' in x and 'arr_' in x):
-					res.insert(i,['get_offst1',str(xv[2]),str(xv[3]),'T150{}'.format(j)])
+					res.insert(i,['arr_',str(xv[2]),str(xv[3]),'T150{}'.format(j)])
 					i+=1
-					res.insert(i,['get_offst2','T150{}'.format(j),str(xv[4]),'T100{}'.format(j)])
+					res.insert(i,['tb_','T150{}'.format(j),str(xv[4]),'T100{}'.format(j)])
 					i+=1
 					cnt+=2
 				if('tb_' in x and 'arr_' not in x):
-					res.insert(i,['get_offst1',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
+					res.insert(i,['tb_',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
 					i+=1
 					cnt+=1
 				if('tb_' not in x and 'arr_' in x):
-					res.insert(i,['get_offst2',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
+					res.insert(i,['arr_',str(xv[1]),str(xv[2]),'T100{}'.format(j)])
 					i+=1
 					cnt+=1
 				res[i][j]='T100{}'.format(j)

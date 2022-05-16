@@ -39,39 +39,37 @@ def remove_struct():
 	global result,text
 	i=0
 	while 1:
-		try:
-			i=text.index('struct ',i)
-			s2=mysplite(text[i:i+500],' ,}{;\n\t',' \n\t')
-			name=s2[1]
-			field={}
-			if(s2[2]=='{'):# 定义 
-				s2=s2[2:]
-				ty=[]
-				ids=[]
-				for tk in s2:
-					if(tk=='}'):
-						s=i
-						while(text[i]!='}'):i+=1# 使指针后移出结构体
-						text=text[0:s]+text[i+2:] # 删除结构体定义
-						struct_type[name]=field
-						i=0
-						break
-					if(tk==',' or tk=='{'):continue
-					if(tk==';'):# pop 所有类型
-						ty1=' '.join(ty)
-						ty.clear()
-						for id in ids:field[id]=ty1
-						ids.clear()
-						continue
-					if(tk in type_info):# 存下类型
-						ty.append(tk)
-						continue
-					ids.append(tk)
-
-			else:# 变量定义
-				while(text[i]!=';'):i+=1
-
+		try:i=text.index('struct ',i)
 		except ValueError:break
+		s2=mysplite(text[i:i+500],' ,}{;\n\t',' \n\t')
+		name=s2[1]
+		field={}
+		if(s2[2]=='{'):# 定义 
+			s2=s2[2:]
+			ty=[]
+			ids=[]
+			for tk in s2:
+				if(tk=='}'):
+					s=i
+					while(text[i]!='}'):i+=1# 使指针后移出结构体
+					text=text[0:s]+text[i+2:] # 删除结构体定义
+					struct_type[name]=field
+					i=0
+					break
+				if(tk==',' or tk=='{'):continue
+				if(tk==';'):# pop 所有类型
+					ty1=' '.join(ty)
+					ty.clear()
+					for id in ids:field[id]=ty1
+					ids.clear()
+					continue
+				if(tk in type_info):# 存下类型
+					ty.append(tk)
+					continue
+				ids.append(tk)
+
+		else:# 变量定义
+			while(text[i]!=';'):i+=1
 
 	result=result+text
 
