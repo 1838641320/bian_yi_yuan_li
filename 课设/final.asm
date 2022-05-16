@@ -20,6 +20,8 @@ aa student < >
 	T3 dw 0
 	T5 dw 0
 	vv dw 12 dup(?)
+	xvlu dw 6,4,2
+	dw 9 dup(?)
 	T8 dw 0
 	T11 dw 0
 .code
@@ -87,22 +89,26 @@ line19:
 	call dispcrlf
 	mov ax,7
 	mov [vv+2*3],ax
+	mov ax,565
+	mov si,[i]
+	imul si,type xvlu
+	mov [xvlu[si]],ax
 	mov ax,0
 	mov [i],ax
-line26:
+line28:
 	mov ax,[i]
 	cmp ax,7
-	jl line31
-	jmp line36
-line28:
+	jl line33
+	jmp line38
+line30:
 	mov ax,[i]
 	mov bx,1
 	add ax,bx
 	mov [T8],ax
 	mov ax,[T8]
 	mov [i],ax
-	jmp line26
-line31:
+	jmp line28
+line33:
 	mov ax,[vv+2*0]
 	mov si,[i]
 	imul si,type vv
@@ -111,8 +117,8 @@ line31:
 	mov [T11],ax
 	mov ax,[T11]
 	mov [vv+2*0],ax
-	jmp line28
-line36:
+	jmp line30
+line38:
 	mov ax,[vv+2*0]
 	mov [i],ax
 	mov ax,[i]

@@ -184,6 +184,8 @@ def fun_12():
 	deal(2)  # [
 	l = deal(1)  # 常量表达式
 	long = l[-1]
+	if(not str(long).isnumeric()):
+		four.append(['arr_',analyze[-2],long,'T150'])
 	analyze.pop()
 	deal(2)  # ]
 	return list([0, long])
@@ -1301,14 +1303,15 @@ def fun_95():
 	deal(1)		# 结构体初始化
 	deal(1)		# 结构体变量定义2
 
-# 产生式 带符号右值 ::= . 求值式
+# 产生式 带符号右值 ::= . ID
 def fun_96():
 	global result1, result2,analyze
 	result1.pop(0)
 	deal(2)		# .
-	deal(1)		# 求值式
+	deal(2)		# ID
 	value = analyze.pop()
 	analyze.append([value[-1], value[0], '.'])
+	four.append(['tb_','T150',value,-1])
 
 # 产生式 常量表达式 ::= 结构体初始化
 def fun_97():

@@ -13,8 +13,8 @@ int main() {
             num_140++;
     }
     printf("%d\n%d\n%d\n", sum, num_140,aa.age);
-    int vv[12];
-    vv[3]=7;
+    int vv[12],xvlu[9]={6,4,2};
+    vv[3]=7;xvlu[i]=565;
     for(i=0;i<7;i++){
         vv[0]+=vv[i];
     }
