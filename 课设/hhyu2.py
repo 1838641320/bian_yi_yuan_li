@@ -1197,6 +1197,7 @@ def fun_84():
 
 struct_types=dict[dict()]
 struct_value=dict()
+struct_value2=dict[dict()]
 struct_const_val=[]
 
 # 产生式 program ::= 结构体定义 program
@@ -1240,7 +1241,10 @@ def fun_88():
 	id2=deal(2)		# ID
 	struct_value[id2]=id1
 	deal(1)		# 结构体初始化
-	analyze.append(struct_const_val)
+	j=0
+	for i in struct_types[id1]:
+		struct_value2[id2][i]=struct_const_val[j]
+		j+=1
 	struct_const_val.clear()
 	deal(1)		# 结构体变量定义2
 	analyze.pop(-1)
