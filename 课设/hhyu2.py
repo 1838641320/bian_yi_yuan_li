@@ -1197,7 +1197,6 @@ def fun_84():
 
 struct_types=dict[dict()]
 struct_value=dict()
-struct_list_val=dict()
 struct_const_val=[]
 
 # 产生式 program ::= 结构体定义 program
@@ -1209,17 +1208,20 @@ def fun_85():
 
 # 产生式 结构体定义 ::= struct ID { 局部变量 局部变量2 } ;
 def fun_86():
-	global result1, result2
+	global result1, result2,table
 	result1.pop(0)
 	deal(2)		# struct
 	struct_id_now=deal(2)		# ID
+	ttable=table
 	deal(2)		# {
 	deal(1)		# 局部变量
 	deal(1)		# 局部变量2
 	deal(2)		# }
-	struct_types[struct_id_now]=struct_list_val
-	struct_list_val.clear()
 	deal(2)		# ;
+	for x in table:
+		if(x not in ttable):  # 表示新定义的变量
+			struct_types[struct_id_now][x]=table[x]
+	table=ttable
 
 # 产生式 local ::= 结构体变量定义 local
 def fun_87():

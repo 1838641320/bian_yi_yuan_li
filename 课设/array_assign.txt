@@ -1,5 +1,3 @@
 class student < "Li ping",5,18,145 >
 student < "Zhang ping",4,19,131 >
 student < "He fang",1,18,148 >
-aa student < > 
-xvlu dw 6,4,2
