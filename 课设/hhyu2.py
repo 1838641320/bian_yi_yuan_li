@@ -567,7 +567,7 @@ def print_table(res_:list[list]):
 					cnt+=1
 				res[i][j]='T100{}'.format(j)
 		for k in range(i,len(res)):
-			if(res[k][0][0]=='j'):res[k][3]+=cnt
+			if(res[k][0][0]=='j' and res[k][3]>=i):res[k][3]+=cnt
 	for l in res:print(l)
 	
 

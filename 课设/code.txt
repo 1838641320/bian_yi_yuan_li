@@ -10,10 +10,20 @@ int main() {
     int sum = 0;
     struct student class[] = {{"Li ping", 5, 18, 145},
     {"Zhang ping", 4, 19, 131},{"He fang", 1, 18, 148}};
+    class[2].score=1000;
+    struct student aa;
+    aa.age=234;
     for (i = 0; i < 3; i++) {
         sum += class[i].score;
         if (class[i].score < 140)
             num_140++;
     }
-    printf("%d\n%d\n", sum, num_140);
+    printf("%d\n%d\n%d\n", sum, num_140,aa.age);
+    int vv[12]={},xvlu[9]={6,4,2};
+    vv[3]=7;xvlu[i]=565;
+    for(i=0;i<7;i++){
+        vv[0]+=vv[i];
+    }
+    i=vv[0];
+    printf("%d\n",i);
 }
